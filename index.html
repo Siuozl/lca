@@ -6,930 +6,238 @@
 <title>Luminescent Creator Academy</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --green: #58cc02;
-    --green-dark: #46a302;
-    --green-shadow: #3a8500;
-    --blue: #1cb0f6;
-    --blue-dark: #1899d6;
-    --purple: #ce82ff;
-    --purple-dark: #a560d1;
-    --red: #ff4b4b;
-    --orange: #ff9600;
-    --yellow: #ffc800;
-    --bg: #131f24;
-    --bg2: #1a2e38;
-    --bg3: #223040;
-    --card: #1e3040;
-    --card2: #253a4d;
-    --border: #2d4a60;
-    --text: #ffffff;
-    --text2: #abb8c3;
-    --text3: #7f9bab;
-    --radius: 16px;
-    --radius-sm: 10px;
-    --transition: 0.18s cubic-bezier(0.4,0,0.2,1);
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ─── SCROLLBAR ─── */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
-
-  /* ─── SCREENS ─── */
-  .screen { display: none; min-height: 100vh; }
-  .screen.active { display: flex; flex-direction: column; }
-
-  /* ══════════════════════════════════════
-     AUTH SCREEN
-  ══════════════════════════════════════ */
-  #auth-screen {
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(ellipse at 60% 0%, #0d3d5a 0%, var(--bg) 60%);
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  #auth-screen::before {
-    content: '';
-    position: absolute;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(88,204,2,0.06) 0%, transparent 70%);
-    top: -200px; left: -100px;
-    pointer-events: none;
-  }
-
-  .auth-box {
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: 24px;
-    padding: 48px 40px;
-    width: 100%; max-width: 420px;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
-    position: relative;
-    z-index: 1;
-  }
-
-  .auth-logo {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-
-  .auth-logo .logo-icon {
-    width: 72px; height: 72px;
-    background: linear-gradient(135deg, var(--green), #00e5a0);
-    border-radius: 20px;
-    display: inline-flex;
-    align-items: center; justify-content: center;
-    font-size: 36px;
-    margin-bottom: 16px;
-    box-shadow: 0 8px 24px rgba(88,204,2,0.3);
-  }
-
-  .auth-logo h1 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 28px;
-    color: var(--text);
-    line-height: 1.1;
-  }
-
-  .auth-logo p {
-    font-size: 13px;
-    color: var(--text3);
-    margin-top: 4px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .auth-tabs {
-    display: flex;
-    background: var(--bg2);
-    border-radius: var(--radius-sm);
-    padding: 4px;
-    margin-bottom: 28px;
-  }
-
-  .auth-tab {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    background: transparent;
-    color: var(--text3);
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: var(--transition);
-  }
-
-  .auth-tab.active {
-    background: var(--card2);
-    color: var(--text);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-
-  .auth-form { display: flex; flex-direction: column; gap: 14px; }
-
-  .field-group { display: flex; flex-direction: column; gap: 6px; }
-  .field-group label { font-size: 12px; font-weight: 800; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; }
-
-  .field-group input {
-    background: var(--bg2);
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    color: var(--text);
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    transition: var(--transition);
-    outline: none;
-  }
-
-  .field-group input:focus { border-color: var(--blue); background: var(--bg3); }
-  .field-group input::placeholder { color: var(--text3); }
-
-  .btn-primary {
-    background: var(--green);
-    border: none;
-    border-bottom: 4px solid var(--green-shadow);
-    border-radius: var(--radius-sm);
-    color: white;
-    font-family: 'Nunito', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-    padding: 16px;
-    cursor: pointer;
-    transition: var(--transition);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 8px;
-  }
-
-  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
-  .btn-primary:active { transform: translateY(2px); border-bottom-width: 1px; }
-  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-  .auth-error {
-    background: rgba(255,75,75,0.15);
-    border: 1.5px solid rgba(255,75,75,0.4);
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #ff8080;
-    display: none;
-  }
-
-  /* ══════════════════════════════════════
-     MAIN APP LAYOUT
-  ══════════════════════════════════════ */
-  #app-screen { flex-direction: row; }
-
-  /* ─── SIDEBAR ─── */
-  .sidebar {
-    width: 88px;
-    background: var(--bg2);
-    border-right: 1.5px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    gap: 8px;
-    position: sticky;
-    top: 0; height: 100vh;
-  }
-
-  .sidebar-logo {
-    width: 52px; height: 52px;
-    background: linear-gradient(135deg, var(--green), #00e5a0);
-    border-radius: 14px;
-    display: flex;
-    align-items: center; justify-content: center;
-    font-size: 26px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 16px rgba(88,204,2,0.25);
-    cursor: pointer;
-    transition: var(--transition);
-  }
-
-  .sidebar-logo:hover { transform: scale(1.05); }
-
-  .nav-btn {
-    width: 52px; height: 52px;
-    background: transparent;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 4px;
-    transition: var(--transition);
-    color: var(--text3);
-    font-size: 10px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-  }
-
-  .nav-btn svg { width: 22px; height: 22px; }
-
-  .nav-btn:hover, .nav-btn.active {
-    background: var(--card);
-    color: var(--green);
-  }
-
-  .sidebar-spacer { flex: 1; }
-
-  .user-avatar-btn {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, var(--blue), var(--purple));
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 16px;
-    color: white;
-    transition: var(--transition);
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-  }
-
-  .user-avatar-btn:hover { transform: scale(1.08); }
-
-  /* ─── MAIN CONTENT ─── */
-  .main-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 40px 48px;
-    max-width: 900px;
-  }
-
-  /* ══════════════════════════════════════
-     VIEWS
-  ══════════════════════════════════════ */
-  .view { display: none; }
-  .view.active { display: block; }
-
-  /* ─── LEARN VIEW (Course Library) ─── */
-  .page-header { margin-bottom: 36px; }
-  .page-header h2 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 32px;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-  .page-header p { color: var(--text3); font-size: 15px; font-weight: 600; }
-
-  .course-card {
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 20px;
-    padding: 28px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    cursor: pointer;
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 16px;
-  }
-
-  .course-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(88,204,2,0.05) 0%, transparent 60%);
-    opacity: 0;
-    transition: var(--transition);
-  }
-
-  .course-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
-  .course-card:hover::before { opacity: 1; }
-
-  .course-icon {
-    width: 72px; height: 72px;
-    background: linear-gradient(135deg, #2d5a27, #3d7a33);
-    border-radius: 18px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
-    flex-shrink: 0;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  }
-
-  .course-info { flex: 1; }
-  .course-info h3 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
-  .course-info p { font-size: 14px; color: var(--text3); font-weight: 600; margin-bottom: 14px; }
-
-  .course-meta {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-  }
-
-  .meta-pill {
-    background: var(--bg2);
-    border-radius: 99px;
-    padding: 5px 12px;
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--text2);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .meta-pill.green { background: rgba(88,204,2,0.15); color: var(--green); }
-
-  .course-progress-bar {
-    height: 8px;
-    background: var(--bg2);
-    border-radius: 99px;
-    margin-top: 14px;
-    overflow: hidden;
-  }
-
-  .course-progress-fill {
-    height: 100%;
-    background: var(--green);
-    border-radius: 99px;
-    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
-    position: relative;
-  }
-
-  .course-progress-fill::after {
-    content: '';
-    position: absolute;
-    right: 0; top: 0; bottom: 0;
-    width: 20px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
-  }
-
-  .course-arrow {
-    font-size: 24px;
-    color: var(--text3);
-    transition: var(--transition);
-    flex-shrink: 0;
-  }
-
-  .course-card:hover .course-arrow { color: var(--green); transform: translateX(4px); }
-
-  /* ══════════════════════════════════════
-     COURSE DETAIL VIEW
-  ══════════════════════════════════════ */
-  .back-btn {
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text2);
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    padding: 10px 18px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 32px;
-    transition: var(--transition);
-  }
-
-  .back-btn:hover { border-color: var(--text2); color: var(--text); }
-
-  .course-header-banner {
-    background: linear-gradient(135deg, #1a3d20 0%, #0f2615 100%);
-    border: 2px solid #2d5a35;
-    border-radius: 20px;
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 40px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .course-header-banner::before {
-    content: '';
-    position: absolute;
-    right: -40px; top: -40px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(88,204,2,0.12) 0%, transparent 70%);
-  }
-
-  .banner-icon { font-size: 56px; flex-shrink: 0; }
-
-  .banner-info h2 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 28px;
-    margin-bottom: 8px;
-  }
-
-  .banner-info p { color: var(--text3); font-weight: 600; font-size: 14px; margin-bottom: 16px; }
-
-  .banner-stats { display: flex; gap: 20px; }
-  .stat-item { display: flex; flex-direction: column; gap: 2px; }
-  .stat-value { font-size: 20px; font-weight: 900; color: var(--green); }
-  .stat-label { font-size: 11px; color: var(--text3); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-
-  /* ─── UNIT / SECTION ─── */
-  .unit-block { margin-bottom: 48px; }
-
-  .unit-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 20px;
-    padding: 20px 24px;
-    background: var(--bg2);
-    border-radius: 16px;
-    border: 1.5px solid var(--border);
-  }
-
-  .unit-badge {
-    width: 48px; height: 48px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    font-weight: 900;
-    flex-shrink: 0;
-  }
-
-  .unit-badge.green { background: rgba(88,204,2,0.2); color: var(--green); }
-  .unit-badge.blue { background: rgba(28,176,246,0.2); color: var(--blue); }
-  .unit-badge.purple { background: rgba(206,130,255,0.2); color: var(--purple); }
-  .unit-badge.orange { background: rgba(255,150,0,0.2); color: var(--orange); }
-
-  .unit-title { font-size: 18px; font-weight: 900; }
-  .unit-subtitle { font-size: 13px; color: var(--text3); font-weight: 600; margin-top: 3px; }
-
-  /* ─── LESSON PATH (Duolingo style) ─── */
-  .lesson-path {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    padding: 0 20px;
-  }
-
-  .path-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    width: 100%;
-    max-width: 480px;
-  }
-
-  .lesson-node-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  }
-
-  .lesson-node {
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center; justify-content: center;
-    font-size: 26px;
-    cursor: pointer;
-    transition: var(--transition);
-    border: 4px solid transparent;
-    position: relative;
-    box-shadow: 0 6px 0 rgba(0,0,0,0.3);
-  }
-
-  .lesson-node.completed {
-    background: var(--green);
-    border-color: var(--green-shadow);
-    box-shadow: 0 6px 0 var(--green-shadow);
-  }
-
-  .lesson-node.current {
-    background: var(--yellow);
-    border-color: #c89600;
-    box-shadow: 0 6px 0 #c89600;
-    animation: pulse-node 2s infinite;
-  }
-
-  .lesson-node.locked {
-    background: var(--bg3);
-    border-color: var(--border);
-    box-shadow: 0 6px 0 var(--border);
-    cursor: not-allowed;
-    opacity: 0.7;
-    font-size: 22px;
-  }
-
-  @keyframes pulse-node {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-
-  .lesson-node:not(.locked):hover { transform: translateY(-4px) scale(1.05); }
-  .lesson-node.completed:hover { box-shadow: 0 10px 0 var(--green-shadow); }
-
-  .lesson-label {
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--text3);
-    margin-top: 8px;
-    text-align: center;
-    max-width: 80px;
-  }
-
-  .lesson-label.completed { color: var(--green); }
-  .lesson-label.current { color: var(--yellow); }
-
-  /* connector dots */
-  .path-connector {
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .path-connector-dots {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .path-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-
-  .path-dot.completed { background: var(--green); }
-
-  /* chest node */
-  .chest-node {
-    width: 72px; height: 72px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, var(--orange), #ff6b00);
-    border: 4px solid #c46800;
-    box-shadow: 0 6px 0 #c46800;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 32px;
-    cursor: pointer;
-    transition: var(--transition);
-    position: relative;
-  }
-
-  .chest-node:hover { transform: translateY(-4px); box-shadow: 0 10px 0 #c46800; }
-
-  /* ══════════════════════════════════════
-     LESSON MODAL
-  ══════════════════════════════════════ */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-
-  .modal-overlay.open { display: flex; }
-
-  .lesson-modal {
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 24px;
-    width: 100%; max-width: 620px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    animation: modal-in 0.25s cubic-bezier(0.4,0,0.2,1);
-  }
-
-  @keyframes modal-in {
-    from { opacity: 0; transform: scale(0.95) translateY(16px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
-  .modal-header {
-    padding: 24px 28px 20px;
-    border-bottom: 1.5px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .modal-header .lesson-icon { font-size: 32px; }
-
-  .modal-header-info h3 { font-size: 20px; font-weight: 900; }
-  .modal-header-info p { font-size: 13px; color: var(--text3); font-weight: 600; margin-top: 3px; }
-
-  .modal-close {
-    margin-left: auto;
-    width: 36px; height: 36px;
-    background: var(--bg2);
-    border: none;
-    border-radius: 50%;
-    color: var(--text3);
-    font-size: 18px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: var(--transition);
-  }
-
-  .modal-close:hover { background: var(--red); color: white; }
-
-  .modal-body { padding: 28px; }
-
-  .xp-reward {
-    background: rgba(255,200,0,0.1);
-    border: 1.5px solid rgba(255,200,0,0.3);
-    border-radius: var(--radius-sm);
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .xp-reward span:first-child { font-size: 24px; }
-  .xp-reward div strong { color: var(--yellow); font-size: 16px; font-weight: 900; }
-  .xp-reward div p { font-size: 12px; color: var(--text3); font-weight: 600; margin-top: 2px; }
-
-  .lesson-content { color: var(--text2); line-height: 1.7; font-size: 15px; font-weight: 600; }
-  .lesson-content h4 { color: var(--text); font-size: 17px; font-weight: 900; margin: 20px 0 10px; }
-  .lesson-content h4:first-child { margin-top: 0; }
-  .lesson-content code {
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    padding: 2px 8px;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    color: var(--purple);
-  }
-
-  .lesson-content pre {
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 16px;
-    margin: 14px 0;
-    overflow-x: auto;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    color: #a8d8a8;
-    line-height: 1.6;
-  }
-
-  .lesson-content ul { padding-left: 20px; margin: 10px 0; }
-  .lesson-content li { margin: 6px 0; }
-
-  .info-box {
-    background: rgba(28,176,246,0.1);
-    border: 1.5px solid rgba(28,176,246,0.3);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    margin: 16px 0;
-    font-size: 14px;
-    color: var(--text2);
-  }
-
-  .info-box .info-title {
-    color: var(--blue);
-    font-weight: 900;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-
-  .tip-box {
-    background: rgba(88,204,2,0.08);
-    border: 1.5px solid rgba(88,204,2,0.25);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    margin: 16px 0;
-    font-size: 14px;
-    color: var(--text2);
-  }
-
-  .tip-box .tip-title {
-    color: var(--green);
-    font-weight: 900;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-
-  .modal-footer {
-    padding: 20px 28px 28px;
-    display: flex;
-    gap: 12px;
-  }
-
-  .btn-complete {
-    flex: 1;
-    background: var(--green);
-    border: none;
-    border-bottom: 4px solid var(--green-shadow);
-    border-radius: var(--radius-sm);
-    color: white;
-    font-family: 'Nunito', sans-serif;
-    font-size: 16px;
-    font-weight: 900;
-    padding: 16px;
-    cursor: pointer;
-    transition: var(--transition);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .btn-complete:hover { background: var(--green-dark); transform: translateY(-1px); }
-  .btn-complete:active { transform: translateY(2px); border-bottom-width: 1px; }
-  .btn-complete.done { background: var(--bg3); border-color: var(--border); color: var(--text3); cursor: default; }
-  .btn-complete.done:hover { transform: none; }
-
-  /* ══════════════════════════════════════
-     PROFILE VIEW
-  ══════════════════════════════════════ */
-  .profile-header {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 32px;
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 20px;
-    margin-bottom: 32px;
-  }
-
-  .big-avatar {
-    width: 80px; height: 80px;
-    background: linear-gradient(135deg, var(--blue), var(--purple));
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 32px;
-    font-weight: 900;
-    flex-shrink: 0;
-    border: 4px solid rgba(255,255,255,0.1);
-  }
-
-  .profile-info h2 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
-  .profile-info p { color: var(--text3); font-size: 14px; font-weight: 600; }
-
-  .logout-btn {
-    margin-left: auto;
-    background: var(--bg2);
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text3);
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    padding: 10px 16px;
-    cursor: pointer;
-    transition: var(--transition);
-  }
-
-  .logout-btn:hover { border-color: var(--red); color: var(--red); }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .stat-card {
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-  }
-
-  .stat-card .big-num {
-    font-family: 'Fredoka One', cursive;
-    font-size: 40px;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .stat-card .stat-name {
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  /* ══════════════════════════════════════
-     XP BAR (sidebar)
-  ══════════════════════════════════════ */
-  .xp-display {
-    background: var(--bg2);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .xp-display span { font-size: 16px; }
-  .xp-display strong { font-size: 14px; font-weight: 900; color: var(--yellow); }
-
-  /* ══════════════════════════════════════
-     TOAST
-  ══════════════════════════════════════ */
-  .toast-container {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .toast {
-    background: var(--card2);
-    border: 2px solid var(--green);
-    border-radius: 14px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    animation: toast-in 0.3s ease;
-    min-width: 260px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-  }
-
-  .toast.error { border-color: var(--red); }
-  .toast span:first-child { font-size: 24px; }
-  .toast-text strong { display: block; font-size: 14px; font-weight: 900; }
-  .toast-text p { font-size: 12px; color: var(--text3); font-weight: 600; margin-top: 2px; }
-
-  @keyframes toast-in {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  /* ══════════════════════════════════════
-     RESPONSIVE
-  ══════════════════════════════════════ */
-  @media (max-width: 680px) {
-    .sidebar { width: 64px; }
-    .sidebar-logo { width: 40px; height: 40px; font-size: 20px; border-radius: 10px; }
-    .main-content { padding: 24px 20px; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .course-card { flex-wrap: wrap; }
-    .auth-box { padding: 32px 24px; }
-  }
+:root{--green:#58cc02;--green-dark:#46a302;--green-shadow:#3a8500;--blue:#1cb0f6;--blue-dark:#1899d6;--purple:#ce82ff;--purple-dark:#a560d1;--red:#ff4b4b;--orange:#ff9600;--yellow:#ffc800;--bg:#131f24;--bg2:#1a2e38;--bg3:#223040;--card:#1e3040;--card2:#253a4d;--border:#2d4a60;--text:#ffffff;--text2:#abb8c3;--text3:#7f9bab;--radius:16px;--radius-sm:10px;--transition:0.18s cubic-bezier(0.4,0,0.2,1);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+#auth-screen{align-items:center;justify-content:center;background:radial-gradient(ellipse at 60% 0%,#0d3d5a 0%,var(--bg) 60%);padding:24px;position:relative;overflow:hidden;}
+#auth-screen::before{content:"";position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(88,204,2,0.06) 0%,transparent 70%);top:-200px;left:-100px;pointer-events:none;}
+.auth-box{background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 32px 80px rgba(0,0,0,0.5);position:relative;z-index:1;}
+.auth-logo{text-align:center;margin-bottom:32px;}
+.auth-logo .logo-icon{width:72px;height:72px;background:linear-gradient(135deg,var(--green),#00e5a0);border-radius:20px;display:inline-flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:16px;box-shadow:0 8px 24px rgba(88,204,2,0.3);}
+.auth-logo h1{font-family:"Fredoka One",cursive;font-size:28px;color:var(--text);line-height:1.1;}
+.auth-logo p{font-size:13px;color:var(--text3);margin-top:4px;font-weight:600;letter-spacing:2px;text-transform:uppercase;}
+.auth-tabs{display:flex;background:var(--bg2);border-radius:var(--radius-sm);padding:4px;margin-bottom:28px;}
+.auth-tab{flex:1;padding:10px;border:none;background:transparent;color:var(--text3);font-family:"Nunito",sans-serif;font-weight:800;font-size:14px;border-radius:8px;cursor:pointer;transition:var(--transition);}
+.auth-tab.active{background:var(--card2);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.auth-form{display:flex;flex-direction:column;gap:14px;}
+.field-group{display:flex;flex-direction:column;gap:6px;}
+.field-group label{font-size:12px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:1px;}
+.field-group input{background:var(--bg2);border:2px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;color:var(--text);font-family:"Nunito",sans-serif;font-size:15px;font-weight:600;transition:var(--transition);outline:none;}
+.field-group input:focus{border-color:var(--blue);background:var(--bg3);}
+.field-group input::placeholder{color:var(--text3);}
+.btn-primary{background:var(--green);border:none;border-bottom:4px solid var(--green-shadow);border-radius:var(--radius-sm);color:white;font-family:"Nunito",sans-serif;font-size:16px;font-weight:800;padding:16px;cursor:pointer;transition:var(--transition);text-transform:uppercase;letter-spacing:0.5px;margin-top:8px;}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);}
+.btn-primary:active{transform:translateY(2px);border-bottom-width:1px;}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.auth-error{background:rgba(255,75,75,0.15);border:1.5px solid rgba(255,75,75,0.4);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;font-weight:700;color:#ff8080;display:none;}
+#app-screen{flex-direction:row;}
+.sidebar{width:88px;background:var(--bg2);border-right:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:20px 0;gap:8px;position:sticky;top:0;height:100vh;}
+.sidebar-logo{width:52px;height:52px;background:linear-gradient(135deg,var(--green),#00e5a0);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px;box-shadow:0 4px 16px rgba(88,204,2,0.25);cursor:pointer;transition:var(--transition);}
+.sidebar-logo:hover{transform:scale(1.05);}
+.nav-btn{width:52px;height:52px;background:transparent;border:none;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:var(--transition);color:var(--text3);font-size:10px;font-family:"Nunito",sans-serif;font-weight:700;}
+.nav-btn svg{width:22px;height:22px;}
+.nav-btn:hover,.nav-btn.active{background:var(--card);color:var(--green);}
+.sidebar-spacer{flex:1;}
+.user-avatar-btn{width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:50%;border:none;cursor:pointer;font-family:"Nunito",sans-serif;font-weight:800;font-size:16px;color:white;transition:var(--transition);display:flex;align-items:center;justify-content:center;}
+.user-avatar-btn:hover{transform:scale(1.08);}
+.main-content{flex:1;overflow-y:auto;padding:40px 48px;max-width:920px;}
+.view{display:none;}.view.active{display:block;}
+.page-header{margin-bottom:36px;}
+.page-header h2{font-family:"Fredoka One",cursive;font-size:32px;color:var(--text);margin-bottom:6px;}
+.page-header p{color:var(--text3);font-size:15px;font-weight:600;}
+.course-card{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:28px;display:flex;align-items:center;gap:24px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;margin-bottom:16px;}
+.course-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(88,204,2,0.05) 0%,transparent 60%);opacity:0;transition:var(--transition);}
+.course-card:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+.course-card:hover::before{opacity:1;}
+.course-icon{width:72px;height:72px;background:linear-gradient(135deg,#2d5a27,#3d7a33);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0;box-shadow:0 6px 20px rgba(0,0,0,0.3);}
+.course-info{flex:1;}
+.course-info h3{font-size:20px;font-weight:900;margin-bottom:6px;}
+.course-info p{font-size:14px;color:var(--text3);font-weight:600;margin-bottom:14px;}
+.course-meta{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.meta-pill{background:var(--bg2);border-radius:99px;padding:5px 12px;font-size:12px;font-weight:800;color:var(--text2);}
+.meta-pill.green{background:rgba(88,204,2,0.15);color:var(--green);}
+.course-progress-bar{height:8px;background:var(--bg2);border-radius:99px;margin-top:14px;overflow:hidden;}
+.course-progress-fill{height:100%;background:var(--green);border-radius:99px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);}
+.course-arrow{font-size:24px;color:var(--text3);transition:var(--transition);flex-shrink:0;}
+.course-card:hover .course-arrow{color:var(--green);transform:translateX(4px);}
+.back-btn{background:var(--card);border:2px solid var(--border);border-radius:var(--radius-sm);color:var(--text2);font-family:"Nunito",sans-serif;font-weight:800;font-size:14px;padding:10px 18px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;transition:var(--transition);}
+.back-btn:hover{border-color:var(--text2);color:var(--text);}
+.course-header-banner{background:linear-gradient(135deg,#1a3d20 0%,#0f2615 100%);border:2px solid #2d5a35;border-radius:20px;padding:32px;display:flex;align-items:center;gap:24px;margin-bottom:28px;position:relative;overflow:hidden;}
+.course-header-banner::before{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(88,204,2,0.12) 0%,transparent 70%);}
+.banner-icon{font-size:56px;flex-shrink:0;}
+.banner-info h2{font-family:"Fredoka One",cursive;font-size:28px;margin-bottom:8px;}
+.banner-info p{color:var(--text3);font-weight:600;font-size:14px;margin-bottom:16px;}
+.banner-stats{display:flex;gap:20px;}
+.stat-item{display:flex;flex-direction:column;gap:2px;}
+.stat-value{font-size:20px;font-weight:900;color:var(--green);}
+.stat-label{font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:28px;}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text3);}
+.legend-dot{width:18px;height:18px;border-radius:50%;flex-shrink:0;}
+.legend-dot.rect{border-radius:6px;}
+.unit-block{margin-bottom:48px;}
+.unit-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:20px 24px;background:var(--bg2);border-radius:16px;border:1.5px solid var(--border);}
+.unit-badge{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;flex-shrink:0;}
+.unit-badge.green{background:rgba(88,204,2,0.2);color:var(--green);}
+.unit-badge.blue{background:rgba(28,176,246,0.2);color:var(--blue);}
+.unit-badge.purple{background:rgba(206,130,255,0.2);color:var(--purple);}
+.unit-badge.orange{background:rgba(255,150,0,0.2);color:var(--orange);}
+.unit-badge.red{background:rgba(255,75,75,0.2);color:var(--red);}
+.unit-badge.yellow{background:rgba(255,200,0,0.2);color:var(--yellow);}
+.unit-badge.teal{background:rgba(0,200,180,0.2);color:#00c8b4;}
+.unit-badge.pink{background:rgba(255,100,180,0.2);color:#ff64b4;}
+.unit-badge.lime{background:rgba(180,255,0,0.18);color:#b4ff00;}
+.unit-title{font-size:18px;font-weight:900;}
+.unit-subtitle{font-size:13px;color:var(--text3);font-weight:600;margin-top:3px;}
+.lesson-path{display:flex;flex-direction:column;align-items:center;padding:0 20px;}
+.lesson-node-wrap{display:flex;flex-direction:column;align-items:center;}
+.lesson-node{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;transition:var(--transition);border:4px solid transparent;box-shadow:0 6px 0 rgba(0,0,0,0.3);}
+.lesson-node.completed{background:var(--green);border-color:var(--green-shadow);box-shadow:0 6px 0 var(--green-shadow);}
+.lesson-node.current{background:var(--yellow);border-color:#c89600;box-shadow:0 6px 0 #c89600;animation:pulse-node 2s infinite;}
+.lesson-node.locked{background:var(--bg3);border-color:var(--border);box-shadow:0 6px 0 var(--border);cursor:not-allowed;opacity:0.7;}
+.lesson-node.quiz-node.completed{background:var(--purple);border-color:var(--purple-dark);box-shadow:0 6px 0 var(--purple-dark);}
+.lesson-node.quiz-node.current{background:var(--orange);border-color:#c46800;box-shadow:0 6px 0 #c46800;}
+.lesson-node.exercise-node.completed{background:var(--blue);border-color:var(--blue-dark);box-shadow:0 6px 0 var(--blue-dark);}
+.lesson-node.exercise-node.current{background:#00bcd4;border-color:#008fa1;box-shadow:0 6px 0 #008fa1;}
+@keyframes pulse-node{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+.lesson-node:not(.locked):hover{transform:translateY(-4px) scale(1.05);}
+.lesson-label{font-size:11px;font-weight:800;color:var(--text3);margin-top:8px;text-align:center;max-width:76px;line-height:1.3;}
+.lesson-label.completed{color:var(--green);}
+.lesson-label.current{color:var(--yellow);}
+.lesson-label.quiz.completed{color:var(--purple);}
+.lesson-label.quiz.current{color:var(--orange);}
+.lesson-label.exercise.completed{color:var(--blue);}
+.lesson-label.exercise.current{color:#00bcd4;}
+.path-connector{height:20px;display:flex;align-items:center;justify-content:center;}
+.path-connector-dots{display:flex;flex-direction:column;gap:4px;}
+.path-dot{width:8px;height:8px;border-radius:50%;background:var(--border);}
+.path-dot.completed{background:var(--green);}
+.chest-node{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--orange),#ff6b00);border:4px solid #c46800;box-shadow:0 6px 0 #c46800;display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer;transition:var(--transition);}
+.chest-node:hover{transform:translateY(-4px);box-shadow:0 10px 0 #c46800;}
+.type-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;}
+.type-badge.read{background:rgba(28,176,246,0.15);color:var(--blue);}
+.type-badge.quiz{background:rgba(206,130,255,0.15);color:var(--purple);}
+.type-badge.exercise{background:rgba(0,200,180,0.15);color:#00c8b4;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.open{display:flex;}
+.lesson-modal{background:var(--card);border:2px solid var(--border);border-radius:24px;width:100%;max-width:660px;max-height:92vh;overflow-y:auto;animation:modal-in 0.25s cubic-bezier(0.4,0,0.2,1);}
+@keyframes modal-in{from{opacity:0;transform:scale(0.95) translateY(16px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.modal-header{padding:24px 28px 20px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;gap:16px;}
+.modal-header .lesson-icon{font-size:32px;}
+.modal-header-info h3{font-size:20px;font-weight:900;}
+.modal-header-info p{font-size:13px;color:var(--text3);font-weight:600;margin-top:3px;}
+.modal-close{margin-left:auto;width:36px;height:36px;background:var(--bg2);border:none;border-radius:50%;color:var(--text3);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition);flex-shrink:0;}
+.modal-close:hover{background:var(--red);color:white;}
+.modal-body{padding:28px;}
+.xp-reward{background:rgba(255,200,0,0.1);border:1.5px solid rgba(255,200,0,0.3);border-radius:var(--radius-sm);padding:14px 18px;display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.xp-reward span:first-child{font-size:24px;}
+.xp-reward div strong{color:var(--yellow);font-size:16px;font-weight:900;}
+.xp-reward div p{font-size:12px;color:var(--text3);font-weight:600;margin-top:2px;}
+.lesson-content{color:var(--text2);line-height:1.75;font-size:15px;font-weight:600;}
+.lesson-content h4{color:var(--text);font-size:17px;font-weight:900;margin:20px 0 10px;}
+.lesson-content h4:first-child{margin-top:0;}
+.lesson-content code{background:var(--bg);border:1.5px solid var(--border);border-radius:6px;padding:2px 8px;font-family:"Courier New",monospace;font-size:13px;color:var(--purple);}
+.lesson-content pre{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin:14px 0;overflow-x:auto;font-family:"Courier New",monospace;font-size:13px;color:#a8d8a8;line-height:1.6;}
+.lesson-content ul,.lesson-content ol{padding-left:20px;margin:10px 0;}
+.lesson-content li{margin:6px 0;}
+.info-box{background:rgba(28,176,246,0.1);border:1.5px solid rgba(28,176,246,0.3);border-radius:var(--radius-sm);padding:14px 16px;margin:16px 0;font-size:14px;color:var(--text2);}
+.info-box .info-title{color:var(--blue);font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.tip-box{background:rgba(88,204,2,0.08);border:1.5px solid rgba(88,204,2,0.25);border-radius:var(--radius-sm);padding:14px 16px;margin:16px 0;font-size:14px;color:var(--text2);}
+.tip-box .tip-title{color:var(--green);font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.warn-box{background:rgba(255,150,0,0.1);border:1.5px solid rgba(255,150,0,0.3);border-radius:var(--radius-sm);padding:14px 16px;margin:16px 0;font-size:14px;color:var(--text2);}
+.warn-box .warn-title{color:var(--orange);font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.modal-footer{padding:20px 28px 28px;display:flex;gap:12px;}
+.btn-complete{flex:1;background:var(--green);border:none;border-bottom:4px solid var(--green-shadow);border-radius:var(--radius-sm);color:white;font-family:"Nunito",sans-serif;font-size:16px;font-weight:900;padding:16px;cursor:pointer;transition:var(--transition);text-transform:uppercase;letter-spacing:0.5px;}
+.btn-complete:hover{background:var(--green-dark);transform:translateY(-1px);}
+.btn-complete:active{transform:translateY(2px);border-bottom-width:1px;}
+.btn-complete.done{background:var(--bg3);border-color:var(--border);color:var(--text3);cursor:default;}
+.btn-complete.done:hover{transform:none;}
+.quiz-question-block{margin-bottom:28px;}
+.quiz-q-num{color:var(--text3);font-size:12px;font-weight:800;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;}
+.quiz-q-text{font-size:16px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.5;}
+.quiz-options{display:flex;flex-direction:column;gap:10px;}
+.quiz-option{background:var(--bg2);border:2px solid var(--border);border-radius:12px;padding:14px 18px;cursor:pointer;font-family:"Nunito",sans-serif;font-size:14px;font-weight:700;color:var(--text2);transition:var(--transition);text-align:left;display:flex;align-items:center;gap:12px;width:100%;}
+.quiz-option:hover:not(.disabled){border-color:var(--blue);color:var(--text);background:var(--bg3);}
+.quiz-option.selected{border-color:var(--blue);background:rgba(28,176,246,0.1);color:var(--text);}
+.quiz-option.correct{border-color:var(--green);background:rgba(88,204,2,0.15);color:var(--green);}
+.quiz-option.wrong{border-color:var(--red);background:rgba(255,75,75,0.12);color:var(--red);}
+.quiz-option.disabled{cursor:default;}
+.quiz-letter{width:28px;height:28px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;transition:var(--transition);}
+.quiz-option.correct .quiz-letter{background:var(--green);color:white;}
+.quiz-option.wrong .quiz-letter{background:var(--red);color:white;}
+.quiz-option.selected .quiz-letter{background:var(--blue);color:white;}
+.quiz-feedback{margin-top:10px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:700;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.cfb{background:rgba(88,204,2,0.12);border:1.5px solid rgba(88,204,2,0.3);color:var(--green);}
+.quiz-feedback.wfb{background:rgba(255,75,75,0.1);border:1.5px solid rgba(255,75,75,0.25);color:#ff8080;}
+.quiz-score-bar{background:var(--bg2);border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:24px;text-align:center;}
+.quiz-score-num{font-family:"Fredoka One",cursive;font-size:48px;color:var(--green);line-height:1;}
+.quiz-score-label{font-size:14px;color:var(--text3);font-weight:700;margin-top:4px;}
+.quiz-submit-btn{background:var(--purple);border:none;border-bottom:4px solid var(--purple-dark);border-radius:var(--radius-sm);color:white;font-family:"Nunito",sans-serif;font-size:15px;font-weight:900;padding:14px 24px;cursor:pointer;transition:var(--transition);text-transform:uppercase;width:100%;margin-top:8px;}
+.quiz-submit-btn:hover:not(:disabled){opacity:0.9;transform:translateY(-1px);}
+.quiz-submit-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.quiz-retry-btn{background:var(--orange);border:none;border-bottom:4px solid #c46800;border-radius:var(--radius-sm);color:white;font-family:"Nunito",sans-serif;font-size:15px;font-weight:900;padding:14px 24px;cursor:pointer;transition:var(--transition);text-transform:uppercase;width:100%;margin-top:8px;}
+.quiz-retry-btn:hover{opacity:0.9;transform:translateY(-1px);}
+.exercise-prompt{font-size:15px;font-weight:700;color:var(--text);margin-bottom:18px;line-height:1.6;}
+.blank-row{margin-bottom:16px;}
+.blank-row .blank-label{color:var(--text2);font-size:14px;font-weight:600;margin-bottom:8px;}
+.blank-inner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.fill-blank-input{background:var(--bg2);border:2px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--text);font-family:"Nunito",sans-serif;font-size:14px;font-weight:700;outline:none;transition:var(--transition);min-width:120px;text-align:center;}
+.fill-blank-input:focus{border-color:var(--blue);}
+.fill-blank-input.ok{border-color:var(--green);background:rgba(88,204,2,0.1);color:var(--green);}
+.fill-blank-input.bad{border-color:var(--red);background:rgba(255,75,75,0.1);color:var(--red);}
+.blank-after{color:var(--text3);font-size:14px;font-weight:600;}
+.blank-result{margin-top:6px;font-size:13px;font-weight:700;color:#ff8080;}
+.exercise-check-btn{background:var(--blue);border:none;border-bottom:3px solid var(--blue-dark);border-radius:8px;color:white;font-family:"Nunito",sans-serif;font-size:13px;font-weight:900;padding:10px 20px;cursor:pointer;transition:var(--transition);text-transform:uppercase;margin-top:12px;}
+.exercise-check-btn:hover{opacity:0.9;}
+.claim-btn{background:var(--green);border:none;border-bottom:4px solid var(--green-shadow);border-radius:var(--radius-sm);color:white;font-family:"Nunito",sans-serif;font-size:15px;font-weight:900;padding:14px;cursor:pointer;transition:var(--transition);text-transform:uppercase;width:100%;margin-top:12px;}
+.claim-btn:hover{background:var(--green-dark);transform:translateY(-1px);}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.match-col{display:flex;flex-direction:column;gap:8px;}
+.match-item{background:var(--bg2);border:2px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:var(--transition);text-align:center;color:var(--text2);line-height:1.4;}
+.match-item.mleft:hover:not(.mc):not(.mw){border-color:var(--blue);color:var(--text);}
+.match-item.sel{border-color:var(--yellow);background:rgba(255,200,0,0.12);color:var(--yellow);}
+.match-item.mc{border-color:var(--green);background:rgba(88,204,2,0.12);color:var(--green);cursor:default;}
+.match-item.mw{border-color:var(--red);background:rgba(255,75,75,0.1);color:var(--red);}
+.match-item.mright:hover:not(.mc):not(.mw){border-color:var(--purple);color:var(--text);}
+.profile-header{display:flex;align-items:center;gap:24px;padding:32px;background:var(--card);border:2px solid var(--border);border-radius:20px;margin-bottom:32px;}
+.big-avatar{width:80px;height:80px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;flex-shrink:0;border:4px solid rgba(255,255,255,0.1);}
+.profile-info h2{font-size:24px;font-weight:900;margin-bottom:4px;}
+.profile-info p{color:var(--text3);font-size:14px;font-weight:600;}
+.logout-btn{margin-left:auto;background:var(--bg2);border:2px solid var(--border);border-radius:var(--radius-sm);color:var(--text3);font-family:"Nunito",sans-serif;font-weight:800;font-size:13px;padding:10px 16px;cursor:pointer;transition:var(--transition);}
+.logout-btn:hover{border-color:var(--red);color:var(--red);}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
+.stat-card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:24px;text-align:center;}
+.stat-card .big-num{font-family:"Fredoka One",cursive;font-size:40px;line-height:1;margin-bottom:6px;}
+.stat-card .stat-name{font-size:12px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:1px;}
+.toast-container{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;gap:10px;}
+.toast{background:var(--card2);border:2px solid var(--green);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:12px;animation:toast-in 0.3s ease;min-width:260px;box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+.toast.err{border-color:var(--red);}
+.toast.inf{border-color:var(--blue);}
+.toast span:first-child{font-size:24px;}
+.toast-text strong{display:block;font-size:14px;font-weight:900;}
+.toast-text p{font-size:12px;color:var(--text3);font-weight:600;margin-top:2px;}
+@keyframes toast-in{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+@media(max-width:680px){.sidebar{width:64px;}.main-content{padding:24px 20px;}.stats-grid{grid-template-columns:1fr 1fr;}.auth-box{padding:32px 24px;}.match-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════
-     AUTH SCREEN
-═══════════════════════════════ -->
+<!-- AUTH SCREEN -->
 <div id="auth-screen" class="screen active">
   <div class="auth-box">
     <div class="auth-logo">
-      <div class="logo-icon">🌟</div>
+      <div class="logo-icon">&#127775;</div>
       <h1>Luminescent Creator<br>Academy</h1>
       <p>LCA</p>
     </div>
-
     <div class="auth-tabs">
       <button class="auth-tab active" onclick="switchAuthTab('login')">Log In</button>
       <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
     </div>
-
     <div class="auth-error" id="auth-error"></div>
-
     <div class="auth-form">
       <div class="field-group" id="name-field" style="display:none;">
         <label>Display Name</label>
@@ -941,324 +249,211 @@
       </div>
       <div class="field-group">
         <label>Password</label>
-        <input type="password" id="auth-password" placeholder="••••••••" autocomplete="current-password"/>
+        <input type="password" id="auth-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password"/>
       </div>
       <button class="btn-primary" id="auth-submit-btn" onclick="handleAuth()">Log In</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-     APP SCREEN
-═══════════════════════════════ -->
+<!-- APP SCREEN -->
 <div id="app-screen" class="screen">
-  <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-logo" onclick="switchView('learn')" title="LCA">🌟</div>
-
+    <div class="sidebar-logo" onclick="switchView('learn')" title="LCA">&#127775;</div>
     <button class="nav-btn active" id="nav-learn" onclick="switchView('learn')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
       Learn
     </button>
-
     <button class="nav-btn" id="nav-profile" onclick="switchView('profile')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Profile
     </button>
-
     <div class="sidebar-spacer"></div>
-
     <button class="user-avatar-btn" onclick="switchView('profile')" id="sidebar-avatar" title="Profile">?</button>
   </aside>
-
-  <!-- Main Content -->
   <main class="main-content">
-
-    <!-- ─── LEARN VIEW ─── -->
+    <!-- LEARN VIEW -->
     <div class="view active" id="view-learn">
-      <div class="page-header">
-        <h2>Course Library</h2>
-        <p>Pick a course and start your creator journey 🚀</p>
-      </div>
-
-      <!-- Course Card: Modding -->
+      <div class="page-header"><h2>Course Library</h2><p>Pick a course and start your creator journey &#128640;</p></div>
       <div class="course-card" onclick="openCourse()">
-        <div class="course-icon">⛏️</div>
+        <div class="course-icon">&#9935;</div>
         <div class="course-info">
           <h3>Minecraft Bedrock Modding</h3>
-          <p>Learn to create Bedrock add-ons using the .bridge editor — from your first block to full behavior packs.</p>
+          <p>Build Bedrock add-ons with .bridge &mdash; from your first manifest to shipping on MCPEDL.</p>
           <div class="course-meta">
-            <div class="meta-pill green">🟢 Beginner</div>
-            <div class="meta-pill">📖 12 Lessons</div>
-            <div class="meta-pill">⭐ 240 XP</div>
+            <div class="meta-pill green">&#127802; Beginner&ndash;Advanced</div>
+            <div class="meta-pill">&#128218; <span id="total-lessons-pill">0</span> Lessons</div>
+            <div class="meta-pill">&#11088; <span id="total-xp-pill">0</span> XP</div>
           </div>
-          <div class="course-progress-bar">
-            <div class="course-progress-fill" id="course-progress-fill" style="width:0%"></div>
-          </div>
+          <div class="course-progress-bar"><div class="course-progress-fill" id="course-progress-fill" style="width:0%"></div></div>
         </div>
-        <div class="course-arrow">›</div>
+        <div class="course-arrow">&#8250;</div>
       </div>
-
-      <!-- Placeholder for more courses -->
-      <div class="course-card" style="opacity:0.4;cursor:not-allowed;" onclick="showToast('🔒','Coming Soon','More courses are on the way!','')">
-        <div class="course-icon" style="background:linear-gradient(135deg,#2d3a5a,#1e2a40);">🎨</div>
+      <div class="course-card" style="opacity:0.4;cursor:not-allowed;" onclick="showToast('&#128274;','Coming Soon','More courses are on the way!','inf')">
+        <div class="course-icon" style="background:linear-gradient(135deg,#2d3a5a,#1e2a40);">&#127912;</div>
         <div class="course-info">
           <h3>Texture Pack Design</h3>
-          <p>Create beautiful resource packs for Minecraft Bedrock with professional art tools.</p>
-          <div class="course-meta">
-            <div class="meta-pill">🔒 Locked</div>
-            <div class="meta-pill">📖 8 Lessons</div>
-          </div>
+          <p>Create beautiful resource packs with professional art tools.</p>
+          <div class="course-meta"><div class="meta-pill">&#128274; Locked</div><div class="meta-pill">&#128218; 8 Lessons</div></div>
         </div>
-        <div class="course-arrow">›</div>
+        <div class="course-arrow">&#8250;</div>
       </div>
     </div>
 
-    <!-- ─── COURSE VIEW ─── -->
+    <!-- COURSE VIEW -->
     <div class="view" id="view-course">
-      <button class="back-btn" onclick="closeCourse()">← Back to Library</button>
-
+      <button class="back-btn" onclick="closeCourse()">&larr; Back to Library</button>
       <div class="course-header-banner">
-        <div class="banner-icon">⛏️</div>
+        <div class="banner-icon">&#9935;</div>
         <div class="banner-info">
           <h2>Minecraft Bedrock Modding</h2>
-          <p>Master .bridge and Bedrock add-on development from scratch</p>
+          <p>Master .bridge and Bedrock add-on development from scratch to publish</p>
           <div class="banner-stats">
-            <div class="stat-item">
-              <div class="stat-value" id="banner-completed">0</div>
-              <div class="stat-label">Done</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">12</div>
-              <div class="stat-label">Lessons</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value" id="banner-xp">0</div>
-              <div class="stat-label">XP Earned</div>
-            </div>
+            <div class="stat-item"><div class="stat-value" id="banner-completed">0</div><div class="stat-label">Done</div></div>
+            <div class="stat-item"><div class="stat-value" id="banner-total">0</div><div class="stat-label">Lessons</div></div>
+            <div class="stat-item"><div class="stat-value" id="banner-xp">0</div><div class="stat-label">XP Earned</div></div>
           </div>
         </div>
       </div>
-
-      <!-- Lesson path rendered by JS -->
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div> Reading</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--purple);"></div> Quiz</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div> Exercise</div>
+        <div class="legend-item"><div class="legend-dot rect" style="background:var(--orange);"></div> Unit chest</div>
+      </div>
       <div id="lesson-path-container"></div>
     </div>
 
-    <!-- ─── PROFILE VIEW ─── -->
+    <!-- PROFILE VIEW -->
     <div class="view" id="view-profile">
-      <div class="page-header">
-        <h2>My Profile</h2>
-        <p>Your learning journey at a glance</p>
-      </div>
-
+      <div class="page-header"><h2>My Profile</h2><p>Your learning journey at a glance</p></div>
       <div class="profile-header">
         <div class="big-avatar" id="profile-avatar">?</div>
-        <div class="profile-info">
-          <h2 id="profile-name">—</h2>
-          <p id="profile-email">—</p>
-        </div>
+        <div class="profile-info"><h2 id="profile-name">&mdash;</h2><p id="profile-email">&mdash;</p></div>
         <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
       </div>
-
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="big-num" style="color:var(--yellow);" id="profile-xp">0</div>
-          <div class="stat-name">⭐ Total XP</div>
-        </div>
-        <div class="stat-card">
-          <div class="big-num" style="color:var(--green);" id="profile-lessons">0</div>
-          <div class="stat-name">✅ Lessons Done</div>
-        </div>
-        <div class="stat-card">
-          <div class="big-num" style="color:var(--blue);" id="profile-courses">0</div>
-          <div class="stat-name">📚 Courses</div>
-        </div>
+        <div class="stat-card"><div class="big-num" style="color:var(--yellow);" id="profile-xp">0</div><div class="stat-name">&#11088; Total XP</div></div>
+        <div class="stat-card"><div class="big-num" style="color:var(--green);" id="profile-lessons">0</div><div class="stat-name">&#9989; Lessons Done</div></div>
+        <div class="stat-card"><div class="big-num" style="color:var(--purple);" id="profile-quizzes">0</div><div class="stat-name">&#129504; Quizzes Passed</div></div>
       </div>
     </div>
-
   </main>
 </div>
 
-<!-- ═══════════════════════════════
-     LESSON MODAL
-═══════════════════════════════ -->
+<!-- LESSON MODAL -->
 <div class="modal-overlay" id="lesson-modal-overlay" onclick="handleOverlayClick(event)">
   <div class="lesson-modal" id="lesson-modal">
     <div class="modal-header">
-      <span class="lesson-icon" id="modal-icon">📘</span>
+      <span class="lesson-icon" id="modal-icon">&#128218;</span>
       <div class="modal-header-info">
-        <h3 id="modal-title">Lesson Title</h3>
-        <p id="modal-subtitle">Unit 1 · Lesson 1</p>
+        <h3 id="modal-title">Lesson</h3>
+        <p id="modal-subtitle">Unit &middot; Lesson</p>
       </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()">&#10005;</button>
     </div>
     <div class="modal-body">
       <div class="xp-reward">
-        <span>⭐</span>
-        <div>
-          <strong id="modal-xp-label">+20 XP</strong>
-          <p>Complete this lesson to earn XP</p>
-        </div>
+        <span>&#11088;</span>
+        <div><strong id="modal-xp-label">+20 XP</strong><p id="modal-xp-sub">Complete this lesson to earn XP</p></div>
       </div>
       <div class="lesson-content" id="modal-content"></div>
     </div>
-    <div class="modal-footer">
-      <button class="btn-complete" id="modal-complete-btn" onclick="completeLesson()">
-        Mark as Complete ✓
-      </button>
+    <div class="modal-footer" id="modal-footer">
+      <button class="btn-complete" id="modal-complete-btn" onclick="completeLesson()">Mark as Complete &#10003;</button>
     </div>
   </div>
 </div>
-
-<!-- Toast container -->
 <div class="toast-container" id="toast-container"></div>
 
-<!-- ═══════════════════════════════
-     FIREBASE + APP SCRIPT
-═══════════════════════════════ -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    updateProfile,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyA7KawNyo6emlUt_jO3jh6219olnD8_tLE",
-    authDomain: "lc-academy-115a5.firebaseapp.com",
-    projectId: "lc-academy-115a5",
-    storageBucket: "lc-academy-115a5.firebasestorage.app",
-    messagingSenderId: "725435760537",
-    appId: "1:725435760537:web:b33c6d746c8ee5794fdd08",
-    measurementId: "G-GTW6D8F2MY"
-  };
+const firebaseConfig = {apiKey:"AIzaSyA7KawNyo6emlUt_jO3jh6219olnD8_tLE",authDomain:"lc-academy-115a5.firebaseapp.com",projectId:"lc-academy-115a5",storageBucket:"lc-academy-115a5.firebasestorage.app",messagingSenderId:"725435760537",appId:"1:725435760537:web:b33c6d746c8ee5794fdd08",measurementId:"G-GTW6D8F2MY"};
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
 
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const auth = getAuth(app);
-
-  // ─── COURSE DATA ───────────────────────────────────────────
-  const COURSE_DATA = {
-    id: 'bedrock-modding',
-    units: [
-      {
-        id: 'u1', label: 'Getting Started', color: 'green', emoji: '🚀',
-        subtitle: 'Set up your development environment',
-        lessons: [
-          {
-            id: 'l1', emoji: '📘', title: 'What is a Bedrock Add-On?', xp: 20,
-            content: `
-              <h4>Introduction to Bedrock Add-Ons</h4>
-              <p>Minecraft Bedrock Edition uses a powerful <strong>add-on system</strong> that lets you modify almost every aspect of the game — from new blocks and items to custom mobs and world generation rules.</p>
-              <div class="info-box">
-                <div class="info-title">💡 Key Concept</div>
-                Add-ons are made up of two main packs: a <strong>Behavior Pack</strong> (game logic) and a <strong>Resource Pack</strong> (visuals and sounds).
-              </div>
-              <h4>Types of Add-Ons</h4>
-              <ul>
-                <li><strong>Behavior Packs</strong> — Change entity AI, add new game mechanics, and modify loot tables</li>
-                <li><strong>Resource Packs</strong> — Change textures, sounds, models, and UI</li>
-                <li><strong>World Templates</strong> — Pre-built worlds with settings baked in</li>
-              </ul>
-              <h4>The Add-On File Structure</h4>
-              <p>Every add-on follows a specific folder structure. Bedrock reads JSON files to understand how your add-on behaves:</p>
-              <pre>my_addon/
-├── manifest.json       ← Required! Describes your pack
-├── pack_icon.png       ← Your pack's icon (optional but recommended)
+// ═══════════════════════════════════════════════════════════
+//  COURSE DATA
+// ═══════════════════════════════════════════════════════════
+const CD = {units:[
+// ── UNIT 1: Getting Started ──────────────────────────────
+{id:'u1',label:'Getting Started',color:'green',emoji:'🚀',subtitle:'Set up your dev environment',lessons:[
+ {id:'l1a',type:'read',emoji:'📘',title:'What is a Bedrock Add-On?',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Introduction to Add-Ons</h4>
+  <p>Minecraft Bedrock Edition's <strong>add-on system</strong> lets you modify nearly everything — new blocks, items, mobs, and world generation rules — using JSON files.</p>
+  <div class="info-box"><div class="info-title">💡 Key Concept</div>Add-ons consist of a <strong>Behavior Pack</strong> (BP) for game logic and a <strong>Resource Pack</strong> (RP) for visuals. You can ship one or both.</div>
+  <h4>Add-On Types</h4>
+  <ul><li><strong>Behavior Packs</strong> — AI, mechanics, loot tables</li><li><strong>Resource Packs</strong> — Textures, sounds, models, UI</li><li><strong>World Templates</strong> — Pre-built worlds with bundled settings</li></ul>
+  <h4>Basic Folder Structure</h4>
+  <pre>my_addon/
+├── manifest.json     ← Required: describes your pack
+├── pack_icon.png     ← Your pack's icon
 └── entities/
-    └── my_mob.json     ← Entity definition files</pre>
-              <div class="tip-box">
-                <div class="tip-title">✅ Pro Tip</div>
-                Always start with a well-formed <code>manifest.json</code>. Without it, Bedrock won't recognize your pack at all!
-              </div>
-            `
-          },
-          {
-            id: 'l2', emoji: '🔧', title: 'Installing .bridge', xp: 20,
-            content: `
-              <h4>What is .bridge?</h4>
-              <p><strong>.bridge</strong> is a dedicated IDE (Integrated Development Environment) built specifically for Minecraft Bedrock add-on development. It gives you syntax highlighting, auto-complete, file management, and more — all in one place.</p>
-              <div class="info-box">
-                <div class="info-title">🔗 Download</div>
-                Get .bridge from the official site: <strong>bridge-core.app</strong> — it's free and available for Windows, macOS, and Linux.
-              </div>
-              <h4>Installation Steps</h4>
-              <ul>
-                <li>Visit <code>bridge-core.app</code> and download the installer for your OS</li>
-                <li>Run the installer and follow the on-screen instructions</li>
-                <li>Launch .bridge — it will ask you to select your Minecraft data folder</li>
-                <li>On Windows this is typically: <code>%AppData%\\Local\\Packages\\...\\LocalState\\games\\com.mojang</code></li>
-              </ul>
-              <h4>First Launch Setup</h4>
-              <p>When you open .bridge for the first time, you'll be prompted to create a <strong>new project</strong>. Choose "Bedrock Add-on" as your project type and fill in the project name.</p>
-              <div class="tip-box">
-                <div class="tip-title">✅ Pro Tip</div>
-                Enable <strong>File Watcher</strong> in .bridge settings so the editor auto-reloads when files change — super useful during development!
-              </div>
-            `
-          },
-          {
-            id: 'l3', emoji: '📄', title: 'Your First manifest.json', xp: 20,
-            content: `
-              <h4>The manifest.json File</h4>
-              <p>The <code>manifest.json</code> is the backbone of every add-on. It tells Minecraft who made the pack, what version it is, and what kind of pack it is.</p>
-              <h4>Behavior Pack Manifest</h4>
-              <pre>{
+    └── my_mob.json   ← Entity definitions</pre>
+  <div class="tip-box"><div class="tip-title">✅ Pro Tip</div>Always start with a valid <code>manifest.json</code>. Without it, Bedrock silently ignores your pack.</div>`},
+ {id:'l1b',type:'read',emoji:'🔧',title:'Installing .bridge',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>What is .bridge?</h4>
+  <p><strong>.bridge</strong> is a free IDE made specifically for Bedrock add-on development — syntax highlighting, auto-complete, real-time JSON validation, and Blockbench integration all in one place.</p>
+  <div class="info-box"><div class="info-title">🔗 Download</div>Get it free at <strong>bridge-core.app</strong> — Windows, macOS, and Linux supported.</div>
+  <h4>Setup Steps</h4>
+  <ol><li>Download and run the installer from bridge-core.app</li><li>Point .bridge at your Minecraft data folder when prompted</li><li>Windows path: <code>%AppData%\Local\Packages\...\LocalState\games\com.mojang</code></li><li>Create a new project → choose Bedrock Add-on</li></ol>
+  <div class="tip-box"><div class="tip-title">✅ Pro Tip</div>Turn on <strong>File Watcher</strong> in settings — the editor hot-reloads when files change!</div>`},
+ {id:'l1c',type:'quiz',emoji:'🧠',title:'Quiz: Add-On Basics',xp:25,
+  questions:[
+   {q:'Which file is required in EVERY Bedrock pack?',opts:['pack_icon.png','manifest.json','entity.json','textures.json'],correct:1,exp:"manifest.json is the backbone. Without it Minecraft won't load the pack."},
+   {q:'Which pack type controls entity AI and game logic?',opts:['Resource Pack','Skin Pack','Behavior Pack','World Template'],correct:2,exp:'Behavior Packs contain the game logic — AI, loot tables, mechanics.'},
+   {q:'Where do you download the .bridge editor?',opts:['minecraft.net','bridge-core.app','bedrock.dev','mcpedl.com'],correct:1,exp:'.bridge is free at bridge-core.app.'},
+   {q:'What do Resource Packs primarily change?',opts:['Entity AI','Game mechanics','Textures, sounds, models','Server settings'],correct:2,exp:'Resource Packs control visuals and audio.'},
+  ]},
+]},
+// ── UNIT 2: manifest.json ────────────────────────────────
+{id:'u2',label:'manifest.json Deep Dive',color:'blue',emoji:'📄',subtitle:'Master the pack manifest',lessons:[
+ {id:'l2a',type:'read',emoji:'📄',title:'Anatomy of manifest.json',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>The manifest.json File</h4>
+  <p>Every pack needs a manifest at its root. It identifies who made the pack, what version it targets, and what kind of pack it is.</p>
+  <pre>{
   "format_version": 2,
   "header": {
     "name": "My First Pack",
     "description": "A learning project",
-    "uuid": "GENERATE-A-UNIQUE-UUID-HERE",
+    "uuid": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "version": [1, 0, 0],
     "min_engine_version": [1, 20, 0]
   },
-  "modules": [
-    {
-      "type": "data",
-      "uuid": "ANOTHER-UNIQUE-UUID",
-      "version": [1, 0, 0]
-    }
-  ]
+  "modules": [{
+    "type": "data",
+    "uuid": "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy",
+    "version": [1, 0, 0]
+  }]
 }</pre>
-              <div class="info-box">
-                <div class="info-title">💡 UUIDs</div>
-                Every pack needs two <strong>unique UUIDs</strong>. .bridge can generate these for you automatically! Go to Tools → Generate UUID.
-              </div>
-              <h4>Key Fields Explained</h4>
-              <ul>
-                <li><code>format_version</code> — Always use <code>2</code> for modern packs</li>
-                <li><code>name</code> — What players see in the pack list</li>
-                <li><code>min_engine_version</code> — Minimum Minecraft version required</li>
-                <li><code>modules.type</code> — Use <code>"data"</code> for behavior, <code>"resources"</code> for resource packs</li>
-              </ul>
-              <div class="tip-box">
-                <div class="tip-title">✅ Pro Tip</div>
-                .bridge validates your JSON as you type. Red underlines mean there's a syntax error — fix them before testing!
-              </div>
-            `
-          }
-        ]
-      },
-      {
-        id: 'u2', label: 'Custom Entities', color: 'blue', emoji: '🦎',
-        subtitle: 'Create your own mobs and creatures',
-        lessons: [
-          {
-            id: 'l4', emoji: '🦴', title: 'Entity Anatomy', xp: 20,
-            content: `
-              <h4>How Entities Work in Bedrock</h4>
-              <p>In Bedrock, every mob is defined by a <strong>behavior file</strong> (in your behavior pack) and a <strong>client entity file</strong> (in your resource pack). Together they define how the mob thinks and looks.</p>
-              <h4>Behavior File Structure</h4>
-              <pre>{
+  <div class="info-box"><div class="info-title">💡 UUIDs</div>Each pack needs <strong>two unique UUIDs</strong> — one in the header, one in modules. Use .bridge's Tools → Generate UUID.</div>
+  <h4>Module Types</h4>
+  <ul><li><code>"data"</code> — Behavior Pack</li><li><code>"resources"</code> — Resource Pack</li><li><code>"script"</code> — JavaScript scripting</li></ul>`},
+ {id:'l2b',type:'exercise',emoji:'✏️',title:'Fill the Manifest Blanks',xp:30,exerciseType:'fillblank',
+  instructions:'Type the correct value for each blank about manifest.json.',
+  blanks:[
+   {before:'The format_version for modern packs is:',blank:'2',after:'',cs:false},
+   {before:'Module type for a Behavior Pack:',blank:'data',after:'',cs:false},
+   {before:'Module type for a Resource Pack:',blank:'resources',after:'',cs:false},
+   {before:'Each pack needs a globally unique:',blank:'uuid',after:'',cs:false},
+  ]},
+ {id:'l2c',type:'quiz',emoji:'🧠',title:'Quiz: manifest.json',xp:25,
+  questions:[
+   {q:'What format_version should modern packs use?',opts:['1','2','3','10'],correct:1,exp:'format_version 2 is required for all modern Bedrock add-ons.'},
+   {q:'How many UUIDs does one pack need in total?',opts:['1','2','3','4'],correct:1,exp:'One in the header, one in the modules array.'},
+   {q:'What does min_engine_version set?',opts:['Which players can join','The minimum Minecraft version required','Your pack version','The module type'],correct:1,exp:'min_engine_version gates the pack to compatible Minecraft versions.'},
+  ]},
+]},
+// ── UNIT 3: Custom Entities ──────────────────────────────
+{id:'u3',label:'Custom Entities',color:'purple',emoji:'🦎',subtitle:'Create your own mobs',lessons:[
+ {id:'l3a',type:'read',emoji:'🦴',title:'Entity Anatomy',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>How Entities Work</h4>
+  <p>Every mob needs a <strong>behavior file</strong> (BP) for AI and a <strong>client entity file</strong> (RP) for visuals.</p>
+  <pre>{
   "format_version": "1.19.0",
   "minecraft:entity": {
     "description": {
@@ -1273,200 +468,192 @@
     }
   }
 }</pre>
-              <div class="info-box">
-                <div class="info-title">💡 Identifiers</div>
-                Entity identifiers follow the format <code>namespace:name</code>. Use your add-on's name as the namespace to avoid conflicts with other packs.
-              </div>
-              <h4>Key Behavior Components</h4>
-              <ul>
-                <li><code>minecraft:health</code> — Sets HP values</li>
-                <li><code>minecraft:movement</code> — Controls speed (0.0–1.0)</li>
-                <li><code>minecraft:physics</code> — Enables gravity and collision</li>
-                <li><code>minecraft:attack</code> — Melee damage value</li>
-              </ul>
-            `
-          },
-          {
-            id: 'l5', emoji: '🎨', title: 'Client Entity & Models', xp: 20,
-            content: `
-              <h4>The Client Entity File</h4>
-              <p>The client entity file lives in your <strong>resource pack</strong> and links your entity's ID to its geometry, texture, and animations.</p>
-              <pre>// RP/entity/my_mob.entity.json
-{
+  <div class="info-box"><div class="info-title">💡 Identifiers</div>Format: <code>namespace:name</code>. Use your pack's name as the namespace to avoid conflicts.</div>`},
+ {id:'l3b',type:'read',emoji:'🧠',title:'Entity AI Goals',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Teaching Mobs to Think</h4>
+  <p>Bedrock AI uses <strong>goal components</strong>. Lower priority number = higher importance.</p>
+  <pre>{
+  "components": {
+    "minecraft:behavior.random_stroll": { "priority": 6 },
+    "minecraft:behavior.look_at_player": { "priority": 7, "look_distance": 8 },
+    "minecraft:behavior.melee_attack": { "priority": 3 }
+  }
+}</pre>
+  <div class="tip-box"><div class="tip-title">✅ Common Goals</div>
+    <code>random_stroll</code> — wander<br>
+    <code>look_at_player</code> — face player<br>
+    <code>float</code> — swim on surface<br>
+    <code>panic</code> — flee when hurt
+  </div>`},
+ {id:'l3c',type:'exercise',emoji:'🔍',title:'Match: Entity Components',xp:30,exerciseType:'match',
+  instructions:'Match each component to what it controls.',
+  pairs:[
+   {left:'minecraft:health',right:'Sets max HP'},
+   {left:'minecraft:movement',right:'Controls walk speed'},
+   {left:'minecraft:physics',right:'Enables gravity & collision'},
+   {left:'minecraft:attack',right:'Sets melee damage'},
+  ]},
+ {id:'l3d',type:'quiz',emoji:'🧠',title:'Quiz: Entities',xp:25,
+  questions:[
+   {q:'Which file controls how an entity LOOKS?',opts:['BP behavior file','RP client entity file','manifest.json','loot_table.json'],correct:1,exp:'Client entity files live in RP and link to geometry and textures.'},
+   {q:'In AI priority, which runs first?',opts:['Highest number','Lowest number','Alphabetical','They all run at once'],correct:1,exp:'Lower priority numbers have higher importance.'},
+   {q:'What identifier format do custom entities use?',opts:['entity_name','namespace/name','namespace:name','name.namespace'],correct:2,exp:'Bedrock uses namespace:name, e.g. myaddon:fire_spirit.'},
+   {q:'What keeps an entity swimming instead of sinking?',opts:['minecraft:physics','minecraft:behavior.float','minecraft:movement','minecraft:navigation.swim'],correct:1,exp:'minecraft:behavior.float keeps entities on the water surface.'},
+  ]},
+]},
+// ── UNIT 4: Items & Blocks ───────────────────────────────
+{id:'u4',label:'Items & Blocks',color:'orange',emoji:'🧱',subtitle:'Add custom items and blocks',lessons:[
+ {id:'l4a',type:'read',emoji:'⚔️',title:'Custom Items',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Creating a Custom Item</h4>
+  <p>Custom items go in <code>BP/items/</code>.</p>
+  <pre>{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": { "identifier": "myaddon:crystal_sword", "category": "equipment" },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": { "texture": "crystal_sword" },
+      "minecraft:durability": { "max_durability": 500 },
+      "minecraft:damage": { "value": 8 }
+    }
+  }
+}</pre>
+  <p>Register the icon in <code>RP/textures/item_texture.json</code>:</p>
+  <pre>{ "texture_data": { "crystal_sword": { "textures": "textures/items/crystal_sword" } } }</pre>`},
+ {id:'l4b',type:'read',emoji:'🧱',title:'Custom Blocks',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Custom Block Definition</h4>
+  <p>Blocks go in <code>BP/blocks/</code>.</p>
+  <pre>{
+  "format_version": "1.20.0",
+  "minecraft:block": {
+    "description": { "identifier": "myaddon:glowstone_ore" },
+    "components": {
+      "minecraft:material_instances": { "*": { "texture": "glowstone_ore", "render_method": "opaque" } },
+      "minecraft:destructible_by_mining": { "seconds_to_destroy": 3.0 },
+      "minecraft:light_emission": { "emission": 10 },
+      "minecraft:loot": "loot_tables/blocks/glowstone_ore.json"
+    }
+  }
+}</pre>
+  <div class="tip-box"><div class="tip-title">✅ Pro Tip</div>Use <code>minecraft:geometry</code> to give your block a non-cube shape!</div>`},
+ {id:'l4c',type:'exercise',emoji:'✏️',title:'Fill the Blanks: Items',xp:30,exerciseType:'fillblank',
+  instructions:'Fill in the correct values for custom item JSON.',
+  blanks:[
+   {before:'Custom items go in:',blank:'BP/items',after:'',cs:false},
+   {before:'To prevent stacking, set max_stack_size to:',blank:'1',after:'',cs:false},
+   {before:'The component that controls how many hits before breaking:',blank:'minecraft:durability',after:'',cs:false},
+   {before:'Block textures are registered in:',blank:'terrain_texture.json',after:'',cs:false},
+  ]},
+ {id:'l4d',type:'quiz',emoji:'🧠',title:'Quiz: Items & Blocks',xp:25,
+  questions:[
+   {q:'Where do custom block definitions go?',opts:['RP/blocks/','BP/blocks/','BP/entities/','RP/textures/'],correct:1,exp:'Block definitions are in BP/blocks/ as JSON files.'},
+   {q:'Which component controls block mine time?',opts:['minecraft:hardness','minecraft:destructible_by_mining','minecraft:break_time','minecraft:material_instances'],correct:1,exp:'minecraft:destructible_by_mining with seconds_to_destroy sets mine time.'},
+   {q:'What does minecraft:hand_equipped do?',opts:['Makes it equippable as armor','Shows it in 3D hand-held style','Allows it as a tool','Prevents dropping'],correct:1,exp:'hand_equipped shows the item in 3D orientation like a sword.'},
+   {q:'Light emission values range from:',opts:['0–100','0–15','0–255','true/false'],correct:1,exp:'Bedrock light uses 0–15, matching Minecraft standard light levels.'},
+  ]},
+]},
+// ── UNIT 5: Loot & Recipes ───────────────────────────────
+{id:'u5',label:'Loot Tables & Recipes',color:'yellow',emoji:'🎲',subtitle:'Control drops and crafting',lessons:[
+ {id:'l5a',type:'read',emoji:'🎲',title:'Loot Tables',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>What are Loot Tables?</h4>
+  <p>Loot tables control drops from broken blocks, killed mobs, or opened chests. They live in <code>BP/loot_tables/</code>.</p>
+  <pre>{
+  "pools": [{
+    "rolls": { "min": 1, "max": 3 },
+    "entries": [
+      { "type": "item", "name": "myaddon:crystal_shard", "weight": 80 },
+      { "type": "item", "name": "minecraft:diamond", "weight": 20 }
+    ]
+  }]
+}</pre>
+  <div class="info-box"><div class="info-title">💡 Weight</div>Weights are relative. 80 vs 20 = 80% chance for the first item, 20% for the second.</div>`},
+ {id:'l5b',type:'read',emoji:'🔨',title:'Crafting Recipes',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Shaped Recipe</h4>
+  <p>Recipes go in <code>BP/recipes/</code>. Shaped recipes require a specific grid pattern.</p>
+  <pre>{
+  "format_version": "1.17.0",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "myaddon:crystal_sword" },
+    "tags": ["crafting_table"],
+    "pattern": [" C ", " C ", " S "],
+    "key": {
+      "C": { "item": "myaddon:crystal_shard" },
+      "S": { "item": "minecraft:stick" }
+    },
+    "result": { "item": "myaddon:crystal_sword" }
+  }
+}</pre>
+  <div class="tip-box"><div class="tip-title">✅ Shapeless</div>Use <code>minecraft:recipe_shapeless</code> when ingredient order doesn't matter.</div>`},
+ {id:'l5c',type:'exercise',emoji:'🔍',title:'Match: Recipe Types',xp:30,exerciseType:'match',
+  instructions:'Match each recipe concept to its meaning.',
+  pairs:[
+   {left:'minecraft:recipe_shaped',right:'Pattern must match exactly'},
+   {left:'minecraft:recipe_shapeless',right:'Ingredients in any order'},
+   {left:'"tags": ["crafting_table"]',right:'Where it can be crafted'},
+   {left:'"result"',right:'What the recipe produces'},
+  ]},
+ {id:'l5d',type:'quiz',emoji:'🧠',title:'Quiz: Loot & Recipes',xp:25,
+  questions:[
+   {q:'Loot table files go in:',opts:['RP/loot_tables/','BP/loot/','BP/loot_tables/','RP/drops/'],correct:2,exp:'Loot tables are BP-side in BP/loot_tables/.'},
+   {q:'Item A has weight 60, item B weight 40. Chance for A?',opts:['60%','40%','50%','100%'],correct:0,exp:'60 out of 100 total = 60%.'},
+   {q:'Which recipe type requires a specific grid pattern?',opts:['recipe_shapeless','recipe_shaped','recipe_furnace','recipe_brewing'],correct:1,exp:'Shaped recipes need items in exact grid positions.'},
+   {q:'What does "rolls" control in a loot pool?',opts:['Pools to use','How many items are drawn','Entry weight','Loot type'],correct:1,exp:'"rolls" controls how many items are picked from that pool.'},
+  ]},
+]},
+// ── UNIT 6: Visuals & Models ─────────────────────────────
+{id:'u6',label:'Visuals & Models',color:'teal',emoji:'🎨',subtitle:'Client entities, geometry & textures',lessons:[
+ {id:'l6a',type:'read',emoji:'🎨',title:'Client Entity Files',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Client Entity File</h4>
+  <p>Lives in your RP and links your entity's ID to its geometry, texture, and animations.</p>
+  <pre>{
   "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
       "identifier": "myaddon:my_mob",
       "materials": { "default": "entity_alphatest" },
-      "textures": {
-        "default": "textures/entity/my_mob"
-      },
-      "geometry": {
-        "default": "geometry.my_mob"
-      },
-      "render_controllers": [
-        "controller.render.default"
-      ]
+      "textures": { "default": "textures/entity/my_mob" },
+      "geometry": { "default": "geometry.my_mob" },
+      "render_controllers": ["controller.render.default"]
     }
   }
 }</pre>
-              <h4>Creating a Geometry Model</h4>
-              <p>Use <strong>Blockbench</strong> (free, browser or desktop) to create your mob's 3D model. Export as "Bedrock Entity Model" and save to <code>RP/models/entity/</code>.</p>
-              <div class="tip-box">
-                <div class="tip-title">✅ Pro Tip</div>
-                .bridge has Blockbench integration! You can open and edit model files directly from the .bridge interface.
-              </div>
-            `
-          },
-          {
-            id: 'l6', emoji: '🧠', title: 'Entity AI Goals', xp: 20,
-            content: `
-              <h4>Teaching Your Mob to Think</h4>
-              <p>Entity AI in Bedrock is controlled by <strong>goal components</strong> — each one adds a specific behavior like wandering, attacking, or following a player.</p>
-              <h4>Common AI Components</h4>
-              <pre>{
-  "components": {
-    "minecraft:behavior.random_stroll": {
-      "priority": 6,
-      "speed_multiplier": 1.0
-    },
-    "minecraft:behavior.look_at_player": {
-      "priority": 7,
-      "look_distance": 8.0
-    },
-    "minecraft:behavior.nearest_attackable_target": {
-      "priority": 2,
-      "entity_types": [
-        { "filters": { "test": "is_family",
-          "subject": "other", "value": "player" } }
-      ]
-    },
-    "minecraft:behavior.melee_attack": {
-      "priority": 3
-    }
-  }
-}</pre>
-              <div class="info-box">
-                <div class="info-title">💡 Priority</div>
-                Lower priority numbers = <strong>higher importance</strong>. Priority 1 overrides priority 5. Plan your priorities carefully!
-              </div>
-            `
-          }
-        ]
-      },
-      {
-        id: 'u3', label: 'Items & Blocks', color: 'purple', emoji: '🧱',
-        subtitle: 'Add custom items and blocks to the world',
-        lessons: [
-          {
-            id: 'l7', emoji: '⚔️', title: 'Custom Items', xp: 20,
-            content: `
-              <h4>Creating a Custom Item</h4>
-              <p>Custom items in Bedrock are defined in the <strong>behavior pack</strong> under <code>BP/items/</code>. You can create weapons, food, tools, or decorative items.</p>
-              <pre>{
-  "format_version": "1.20.0",
-  "minecraft:item": {
-    "description": {
-      "identifier": "myaddon:crystal_sword",
-      "category": "equipment"
-    },
-    "components": {
-      "minecraft:max_stack_size": 1,
-      "minecraft:hand_equipped": true,
-      "minecraft:icon": {
-        "texture": "crystal_sword"
-      },
-      "minecraft:durability": {
-        "max_durability": 500
-      },
-      "minecraft:damage": { "value": 8 }
-    }
-  }
-}</pre>
-              <h4>Registering the Texture</h4>
-              <p>Add your item's texture path to <code>RP/textures/item_texture.json</code>:</p>
-              <pre>{
+  <h4>Blockbench</h4>
+  <p>Use <strong>Blockbench</strong> (free at blockbench.net) to create 3D models. Export as "Bedrock Entity Model" to <code>RP/models/entity/</code>.</p>
+  <div class="tip-box"><div class="tip-title">✅ Pro Tip</div>.bridge has Blockbench integration — open model files directly inside the editor!</div>`},
+ {id:'l6b',type:'read',emoji:'🖼️',title:'Textures & Terrain',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Entity Texture Tips</h4>
+  <ul><li>Standard entity textures: <strong>64×64</strong> pixels</li><li>Always use powers of 2 (64, 128, 256…)</li><li>Format: <strong>PNG only</strong></li></ul>
+  <h4>Block Terrain Textures</h4>
+  <p>Register block textures in <code>RP/textures/terrain_texture.json</code>:</p>
+  <pre>{
   "texture_data": {
-    "crystal_sword": {
-      "textures": "textures/items/crystal_sword"
-    }
+    "glowstone_ore": { "textures": "textures/blocks/glowstone_ore" }
   }
 }</pre>
-            `
-          },
-          {
-            id: 'l8', emoji: '🧱', title: 'Custom Blocks', xp: 20,
-            content: `
-              <h4>Defining a Custom Block</h4>
-              <p>Custom blocks are one of the most powerful features in modern Bedrock add-ons. They go in <code>BP/blocks/</code>.</p>
-              <pre>{
-  "format_version": "1.20.0",
-  "minecraft:block": {
-    "description": {
-      "identifier": "myaddon:glowstone_ore"
-    },
-    "components": {
-      "minecraft:material_instances": {
-        "*": { "texture": "glowstone_ore",
-               "render_method": "opaque" }
-      },
-      "minecraft:destructible_by_mining": {
-        "seconds_to_destroy": 3.0
-      },
-      "minecraft:light_emission": { "emission": 10 },
-      "minecraft:map_color": "#FFD700",
-      "minecraft:loot": "loot_tables/blocks/glowstone_ore.json"
-    }
-  }
-}</pre>
-              <div class="tip-box">
-                <div class="tip-title">✅ Pro Tip</div>
-                Use <code>minecraft:geometry</code> component to give your block a custom shape instead of the default cube!
-              </div>
-            `
-          },
-          {
-            id: 'l9', emoji: '🏆', title: 'Loot Tables', xp: 20,
-            content: `
-              <h4>What are Loot Tables?</h4>
-              <p>Loot tables control <strong>what drops</strong> when a block is broken, a mob is killed, or a chest is opened. They're JSON files stored in <code>BP/loot_tables/</code>.</p>
-              <pre>{
-  "pools": [
-    {
-      "rolls": { "min": 1, "max": 3 },
-      "entries": [
-        {
-          "type": "item",
-          "name": "myaddon:crystal_shard",
-          "weight": 80
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond",
-          "weight": 20
-        }
-      ]
-    }
-  ]
-}</pre>
-              <div class="info-box">
-                <div class="info-title">💡 Weight System</div>
-                The <strong>weight</strong> values are relative. A weight of 80 vs 20 means an 80% chance for the first item and 20% for the second.
-              </div>
-            `
-          }
-        ]
-      },
-      {
-        id: 'u4', label: 'Advanced Topics', color: 'orange', emoji: '⚡',
-        subtitle: 'Animation controllers, particles & publishing',
-        lessons: [
-          {
-            id: 'l10', emoji: '🎬', title: 'Animation Controllers', xp: 20,
-            content: `
-              <h4>State Machine Animations</h4>
-              <p>Animation controllers are <strong>state machines</strong> — they define when to play each animation based on the entity's current state (idle, walking, attacking, etc.).</p>
-              <pre>{
+  <div class="info-box"><div class="info-title">💡 Format</div>Bedrock requires PNG for all textures — JPEG and WebP are not supported.</div>`},
+ {id:'l6c',type:'exercise',emoji:'✏️',title:'Fill the Blanks: Visuals',xp:30,exerciseType:'fillblank',
+  instructions:'Complete the blanks about client entities and textures.',
+  blanks:[
+   {before:'Client entity files go in:',blank:'RP/entity',after:'',cs:false},
+   {before:'3D models are saved to:',blank:'RP/models/entity',after:'',cs:false},
+   {before:'The recommended 3D modeling tool for Bedrock is:',blank:'Blockbench',after:'',cs:false},
+   {before:'Textures must be saved as:',blank:'PNG',after:'format',cs:false},
+  ]},
+ {id:'l6d',type:'quiz',emoji:'🧠',title:'Quiz: Visuals & Models',xp:25,
+  questions:[
+   {q:'What free tool do Bedrock devs use for 3D models?',opts:['Blender','Blockbench','Maya','Cinema 4D'],correct:1,exp:'Blockbench is the standard free tool with native Bedrock export.'},
+   {q:'Standard entity texture resolution?',opts:['16×16','32×32','64×64','128×128'],correct:2,exp:'64×64 is the standard for Bedrock entity textures.'},
+   {q:'Block texture mappings go in:',opts:['item_texture.json','textures.json','terrain_texture.json','block_textures.json'],correct:2,exp:'terrain_texture.json maps texture names to file paths for blocks.'},
+   {q:'What does a render controller do?',opts:['Renders the sky','Links geometry+texture+material at runtime','Controls FPS','Handles shadows'],correct:1,exp:'Render controllers tell Bedrock which geometry, texture, and material to use.'},
+  ]},
+]},
+// ── UNIT 7: Animations ───────────────────────────────────
+{id:'u7',label:'Animations & Molang',color:'pink',emoji:'🎬',subtitle:'Bring entities to life',lessons:[
+ {id:'l7a',type:'read',emoji:'🎬',title:'Animation Controllers',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>State Machine Animations</h4>
+  <p>Animation controllers are <strong>state machines</strong>. They transition between states based on Molang conditions.</p>
+  <pre>{
   "format_version": "1.10.0",
   "animation_controllers": {
     "controller.animation.my_mob.move": {
@@ -1474,439 +661,711 @@
       "states": {
         "idle": {
           "animations": ["animation.my_mob.idle"],
-          "transitions": [
-            { "walk": "query.modified_move_speed > 0.1" }
-          ]
+          "transitions": [{ "walk": "query.modified_move_speed > 0.1" }]
         },
         "walk": {
           "animations": ["animation.my_mob.walk"],
-          "transitions": [
-            { "idle": "query.modified_move_speed <= 0.1" }
-          ]
+          "transitions": [{ "idle": "query.modified_move_speed <= 0.1" }]
         }
       }
     }
   }
-}</pre>
-              <p>The <code>query.*</code> functions are Molang expressions — Bedrock's scripting language for querying entity state.</p>
-            `
-          },
-          {
-            id: 'l11', emoji: '✨', title: 'Particle Effects', xp: 20,
-            content: `
-              <h4>Adding Particle Effects</h4>
-              <p>Particles can be attached to entities, triggered by animations, or spawned via commands. They're defined in <code>RP/particles/</code>.</p>
-              <pre>{
+}</pre>`},
+ {id:'l7b',type:'read',emoji:'📐',title:'Molang Expressions',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>What is Molang?</h4>
+  <p>Molang is Bedrock's expression language for animations, render controllers, and particles.</p>
+  <h4>Common Queries</h4>
+  <ul>
+    <li><code>query.modified_move_speed</code> — current movement speed</li>
+    <li><code>query.is_on_ground</code> — 1.0 if on ground</li>
+    <li><code>query.health</code> — current HP</li>
+    <li><code>query.anim_time</code> — seconds since anim started</li>
+  </ul>
+  <h4>Math Examples</h4>
+  <pre>// Leg swing based on time
+math.sin(query.anim_time * 38) * 30
+
+// Blend between two values
+math.lerp(0, 90, query.modified_move_speed)</pre>
+  <div class="tip-box"><div class="tip-title">✅ Pro Tip</div>Test Molang live in Blockbench's Molang panel without launching Minecraft!</div>`},
+ {id:'l7c',type:'exercise',emoji:'🔍',title:'Match: Molang Queries',xp:30,exerciseType:'match',
+  instructions:'Match each Molang query to what it returns.',
+  pairs:[
+   {left:'query.is_on_ground',right:'1 if on ground, 0 if not'},
+   {left:'query.health',right:'Current HP value'},
+   {left:'query.anim_time',right:'Seconds since anim started'},
+   {left:'query.modified_move_speed',right:'Current movement speed'},
+  ]},
+ {id:'l7d',type:'quiz',emoji:'🧠',title:'Quiz: Animations',xp:25,
+  questions:[
+   {q:'What concept do animation controllers use?',opts:['For loops','State machines','Recursion','Binary trees'],correct:1,exp:'Animation controllers are state machines that transition between named states.'},
+   {q:'What is Molang?',opts:['A 3D modeling tool','A texture format','Bedrock expression language','A pack module type'],correct:2,exp:'Molang is the scripting/expression language used in animations, particles, and render controllers.'},
+   {q:'query.is_on_ground returns what when flying?',opts:['1','0','true','null'],correct:1,exp:'Molang queries return 1 (true) or 0 (false). 0 = not on ground.'},
+   {q:'What triggers an animation controller transition?',opts:['A Molang condition becoming true','A timer reaching zero','Player clicks entity','A random number'],correct:0,exp:'Transitions fire when their Molang condition evaluates to non-zero (true).'},
+  ]},
+]},
+// ── UNIT 8: Particles & Sound ────────────────────────────
+{id:'u8',label:'Particles & Sound',color:'red',emoji:'✨',subtitle:'Visual and audio effects',lessons:[
+ {id:'l8a',type:'read',emoji:'✨',title:'Particle Effects',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Particle Definitions</h4>
+  <p>Particles live in <code>RP/particles/</code> and can be triggered by animations or commands.</p>
+  <pre>{
   "format_version": "1.10.0",
   "particle_effect": {
     "description": {
       "identifier": "myaddon:magic_sparkle",
-      "basic_render_parameters": {
-        "material": "particles_alpha",
-        "texture": "textures/particle/sparkle"
-      }
+      "basic_render_parameters": { "material": "particles_alpha", "texture": "textures/particle/sparkle" }
     },
     "components": {
-      "minecraft:emitter_lifetime_looping": {
-        "active_time": 1,
-        "sleep_time": 0
-      },
-      "minecraft:emitter_rate_steady": {
-        "spawn_rate": 10,
-        "max_particles": 50
-      },
-      "minecraft:particle_lifetime_expression": {
-        "max_lifetime": 0.8
-      }
+      "minecraft:emitter_rate_steady": { "spawn_rate": 10, "max_particles": 50 },
+      "minecraft:particle_lifetime_expression": { "max_lifetime": 0.8 }
     }
   }
 }</pre>
-              <div class="tip-box">
-                <div class="tip-title">✅ Pro Tip</div>
-                Use the <strong>Snowstorm</strong> particle editor (snowstorm.site) for a visual, live preview of your particle effects!
-              </div>
-            `
-          },
-          {
-            id: 'l12', emoji: '🚀', title: 'Publishing Your Add-On', xp: 20,
-            content: `
-              <h4>Packaging Your Add-On</h4>
-              <p>When your add-on is ready to share, you need to package it as a <code>.mcaddon</code> file — which is just a ZIP containing both your behavior pack and resource pack.</p>
-              <h4>Steps to Export</h4>
-              <ul>
-                <li>In .bridge, go to <strong>File → Export → Export as .mcaddon</strong></li>
-                <li>Share the <code>.mcaddon</code> file — users can double-click it to import into Minecraft</li>
-                <li>Alternatively, zip BP and RP folders manually and rename to <code>.mcaddon</code></li>
-              </ul>
-              <h4>Publishing Platforms</h4>
-              <ul>
-                <li><strong>MCPEDL</strong> — Free community site for sharing add-ons</li>
-                <li><strong>Minecraft Marketplace</strong> — Official paid marketplace (partner program required)</li>
-                <li><strong>Planet Minecraft</strong> — Large modding community</li>
-                <li><strong>GitHub</strong> — Great for open-source add-ons and collaboration</li>
-              </ul>
-              <div class="info-box">
-                <div class="info-title">🎉 Congratulations!</div>
-                You've completed the Minecraft Bedrock Modding course! You now have all the foundational skills to build and publish your own Bedrock add-ons. Keep creating! 🎮
-              </div>
-            `
-          }
-        ]
+  <div class="tip-box"><div class="tip-title">✅ Pro Tip</div>Use <strong>Snowstorm</strong> (snowstorm.site) — a visual particle editor with live preview!</div>`},
+ {id:'l8b',type:'read',emoji:'🔊',title:'Custom Sounds',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Adding Custom Sounds</h4>
+  <p>OGG files go in <code>RP/sounds/</code> and are registered in <code>RP/sounds/sound_definitions.json</code>.</p>
+  <pre>{
+  "myaddon.crystal_sword.swing": {
+    "category": "player",
+    "sounds": ["sounds/myaddon/crystal_swing"]
+  }
+}</pre>
+  <p>Trigger sounds from animation files:</p>
+  <pre>"sound_effects": { "0.0": { "effect": "myaddon.crystal_sword.swing" } }</pre>
+  <div class="info-box"><div class="info-title">💡 Format</div>Bedrock requires <strong>OGG Vorbis</strong> format. Convert MP3/WAV with Audacity (free).</div>`},
+ {id:'l8c',type:'exercise',emoji:'🔍',title:'Match: FX Concepts',xp:30,exerciseType:'match',
+  instructions:'Match each FX term to its correct description.',
+  pairs:[
+   {left:'RP/particles/',right:'Where particle definitions live'},
+   {left:'sound_definitions.json',right:'Registers custom sound IDs'},
+   {left:'OGG Vorbis',right:'Required audio format'},
+   {left:'Snowstorm',right:'Visual particle editor tool'},
+  ]},
+ {id:'l8d',type:'quiz',emoji:'🧠',title:'Quiz: Particles & Sound',xp:25,
+  questions:[
+   {q:'Where do particle definitions go?',opts:['BP/particles/','RP/particles/','RP/effects/','BP/effects/'],correct:1,exp:'Particles are resource-side: RP/particles/.'},
+   {q:'What audio format does Bedrock require?',opts:['MP3','WAV','OGG','FLAC'],correct:2,exp:'Bedrock requires OGG Vorbis format.'},
+   {q:'Which tool gives a live visual preview of particles?',opts:['Blockbench','Snowstorm','.bridge','Audacity'],correct:1,exp:'Snowstorm (snowstorm.site) is the go-to particle editor.'},
+   {q:'Sound IDs are registered in:',opts:['sounds.json','audio_definitions.json','sound_definitions.json','pack_sounds.json'],correct:2,exp:'sound_definitions.json maps sound IDs to file paths.'},
+  ]},
+]},
+// ── UNIT 9: Script API ───────────────────────────────────
+{id:'u9',label:'Script API Basics',color:'blue',emoji:'💻',subtitle:'Use JavaScript for advanced mechanics',lessons:[
+ {id:'l9a',type:'read',emoji:'💻',title:'Intro to the Script API',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>What is the Script API?</h4>
+  <p>The Bedrock Script API lets you write <strong>JavaScript</strong> that runs inside Minecraft — detect events, manipulate entities, run commands, and build mechanics impossible with JSON alone.</p>
+  <div class="info-box"><div class="info-title">💡 Requirements</div>Needs Minecraft 1.19.20+ and a <code>"script"</code> module in your manifest.</div>
+  <h4>manifest.json Module</h4>
+  <pre>{
+  "modules": [{
+    "type": "script",
+    "language": "javascript",
+    "uuid": "...",
+    "version": [1, 0, 0],
+    "entry": "scripts/main.js"
+  }],
+  "dependencies": [{ "module_name": "@minecraft/server", "version": "1.6.0" }]
+}</pre>
+  <h4>First Script</h4>
+  <pre>import { world } from "@minecraft/server";
+
+world.afterEvents.entityDie.subscribe(event => {
+  const player = event.damageSource.damagingEntity;
+  if (player?.typeId === "minecraft:player") {
+    player.sendMessage("You got a kill!");
+  }
+});</pre>`},
+ {id:'l9b',type:'read',emoji:'📡',title:'Events & Subscriptions',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Event-Driven Programming</h4>
+  <p>Subscribe to events — when something happens, your callback fires.</p>
+  <h4>Common Events</h4>
+  <ul>
+    <li><code>world.afterEvents.playerJoin</code></li>
+    <li><code>world.afterEvents.entityDie</code></li>
+    <li><code>world.afterEvents.playerBreakBlock</code></li>
+    <li><code>world.afterEvents.itemUse</code></li>
+    <li><code>world.afterEvents.chatSend</code></li>
+  </ul>
+  <h4>Before vs After</h4>
+  <pre>// beforeEvents — can be CANCELLED
+world.beforeEvents.chatSend.subscribe(ev => {
+  if (ev.message.includes("badword")) ev.cancel = true;
+});
+
+// afterEvents — fires after the fact
+world.afterEvents.chatSend.subscribe(ev => {
+  console.log(ev.sender.name + ": " + ev.message);
+});</pre>
+  <div class="tip-box"><div class="tip-title">✅ Key Difference</div><strong>beforeEvents</strong> can be cancelled. <strong>afterEvents</strong> cannot.</div>`},
+ {id:'l9c',type:'exercise',emoji:'✏️',title:'Fill the Blanks: Script API',xp:30,exerciseType:'fillblank',
+  instructions:'Complete the Script API blanks.',
+  blanks:[
+   {before:'Scripts use the language:',blank:'javascript',after:'',cs:false},
+   {before:'The main Bedrock module to import is:',blank:'@minecraft/server',after:'',cs:false},
+   {before:'To listen for events you call:',blank:'subscribe',after:'(callback)',cs:false},
+   {before:'The event type that can be cancelled is:',blank:'beforeEvents',after:'',cs:false},
+  ]},
+ {id:'l9d',type:'quiz',emoji:'🧠',title:'Quiz: Script API',xp:25,
+  questions:[
+   {q:'What language does the Bedrock Script API use?',opts:['Python','Lua','JavaScript','C#'],correct:2,exp:'The Script API uses JavaScript (ES modules).'},
+   {q:'Which event type can be cancelled?',opts:['afterEvents','worldEvents','beforeEvents','systemEvents'],correct:2,exp:'beforeEvents can be cancelled by setting event.cancel = true.'},
+   {q:'What module do you import for most Script API features?',opts:['"@minecraft/client"','"@minecraft/server"','"@minecraft/world"','"@bedrock/api"'],correct:1,exp:'"@minecraft/server" is the primary module.'},
+   {q:'Where does the entry script path come from?',opts:['The "entry" field in the manifest module','Always BP/scripts/index.js','RP/scripts/main.js','BP/main.js'],correct:0,exp:'The "entry" field in the manifest module sets the script path.'},
+  ]},
+]},
+// ── UNIT 10: Spawn Rules & Component Groups ──────────────
+{id:'u10',label:'Advanced Mechanics',color:'purple',emoji:'⚡',subtitle:'Spawn rules, filters & component groups',lessons:[
+ {id:'l10a',type:'read',emoji:'🌍',title:'Spawn Rules',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Natural Entity Spawning</h4>
+  <p>Spawn rules define where and when your entity appears in the world. They live in <code>BP/spawn_rules/</code>.</p>
+  <pre>{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": { "identifier": "myaddon:my_mob", "population_control": "monster" },
+    "conditions": [{
+      "minecraft:spawns_on_surface": {},
+      "minecraft:brightness_filter": { "min": 0, "max": 7, "adjust_for_weather": true },
+      "minecraft:biome_filter": { "test": "has_biome_tag", "operator": "==", "value": "overworld" },
+      "minecraft:weight": { "default": 80 },
+      "minecraft:herd": { "min_size": 1, "max_size": 4 }
+    }]
+  }
+}</pre>
+  <div class="info-box"><div class="info-title">💡 population_control</div>"monster" for hostile, "animal" for passive, "ambient" for bats. Controls which mob cap pool is used.</div>`},
+ {id:'l10b',type:'read',emoji:'🎛️',title:'Component Groups & Filters',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Dynamic Behavior with Component Groups</h4>
+  <p>Component groups let you <strong>swap behavior at runtime</strong>.</p>
+  <pre>{
+  "component_groups": {
+    "myaddon:passive": { "minecraft:behavior.random_stroll": { "priority": 5 } },
+    "myaddon:angry": { "minecraft:behavior.melee_attack": { "priority": 2 } }
+  },
+  "events": {
+    "myaddon:become_angry": {
+      "remove": { "component_groups": ["myaddon:passive"] },
+      "add": { "component_groups": ["myaddon:angry"] }
+    }
+  }
+}</pre>
+  <h4>Filters</h4>
+  <pre>"filters": { "test": "is_daytime", "value": true }</pre>`},
+ {id:'l10c',type:'exercise',emoji:'✏️',title:'Fill the Blanks: Spawn Rules',xp:30,exerciseType:'fillblank',
+  instructions:'Complete the spawn rule concepts.',
+  blanks:[
+   {before:'Spawn rules go in:',blank:'BP/spawn_rules',after:'',cs:false},
+   {before:'population_control for hostile mobs:',blank:'monster',after:'',cs:false},
+   {before:'Component groups can be toggled at:',blank:'runtime',after:'',cs:false},
+   {before:'To swap groups you use entity:',blank:'events',after:'',cs:false},
+  ]},
+ {id:'l10d',type:'quiz',emoji:'🧠',title:'Quiz: Advanced Mechanics',xp:25,
+  questions:[
+   {q:'What does population_control: "monster" affect?',opts:['Mob speed','Which mob cap pool is used','Entity AI priority','Spawn weight'],correct:1,exp:'population_control determines which cap pool the mob uses.'},
+   {q:'Component groups are used for:',opts:['Grouping JSON files','Adding/removing components at runtime','Organizing textures','Declaring UV maps'],correct:1,exp:'Component groups are named sets of components toggled via entity events.'},
+   {q:'Spawn rule files go in:',opts:['RP/spawn_rules/','BP/entities/','BP/spawn_rules/','RP/entities/'],correct:2,exp:'Spawn rules are BP-side: BP/spawn_rules/.'},
+   {q:'What does a Bedrock filter check?',opts:['Log output','A condition before a behavior activates','Texture colors','Component sorting'],correct:1,exp:'Filters check conditions (time, biome, entity state) before a behavior fires.'},
+  ]},
+]},
+// ── UNIT 11: Testing & Debugging ─────────────────────────
+{id:'u11',label:'Testing & Debugging',color:'lime',emoji:'🔍',subtitle:'Find and fix issues fast',lessons:[
+ {id:'l11a',type:'read',emoji:'🐛',title:'Debugging Tools',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Your Debugging Arsenal</h4>
+  <div class="info-box"><div class="info-title">💡 Content Log</div>Enable in <strong>Settings → Creator → Content Log</strong>. Shows JSON errors, missing files, and script errors in real time. Always keep it open while developing.</div>
+  <h4>Common JSON Errors</h4>
+  <ul>
+    <li>Missing comma between properties</li>
+    <li>Trailing comma after last item</li>
+    <li>Wrong quote type (use double quotes only)</li>
+    <li>Duplicate UUIDs between packs</li>
+  </ul>
+  <h4>Script Debugging with VS Code</h4>
+  <ol>
+    <li>Install <strong>Minecraft Bedrock Edition Debugger</strong> extension</li>
+    <li>Enable developer mode in Minecraft settings</li>
+    <li>Connect VS Code via the debug panel</li>
+    <li>Set breakpoints and step through your JS</li>
+  </ol>`},
+ {id:'l11b',type:'read',emoji:'⚡',title:'Hot Reload & Test Commands',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Fast Test Loop</h4>
+  <p>Use <code>/reload</code> in-game to reload most changes without quitting the world.</p>
+  <div class="warn-box"><div class="warn-title">⚠️ Note</div>Script API changes require a full world reload — <code>/reload</code> won't pick them up.</div>
+  <h4>Useful Test Commands</h4>
+  <pre>/summon myaddon:my_mob
+/give @s myaddon:crystal_sword
+/loot give @s loot "loot_tables/entities/my_mob.json"</pre>
+  <div class="tip-box"><div class="tip-title">✅ Pro Tip</div>Create a dedicated test world with cheats, always-day, and no weather. It saves enormous time.</div>`},
+ {id:'l11c',type:'exercise',emoji:'🔍',title:'Match: Debug Tools',xp:30,exerciseType:'match',
+  instructions:"Match each debugging tool to what it's best for.",
+  pairs:[
+   {left:'Content Log',right:'Catching JSON & pack errors'},
+   {left:'VS Code Debugger',right:'Stepping through Script API code'},
+   {left:'/reload command',right:'Reloading pack changes in-game'},
+   {left:'.bridge validation',right:'Real-time JSON syntax checking'},
+  ]},
+ {id:'l11d',type:'quiz',emoji:'🧠',title:'Quiz: Testing & Debugging',xp:25,
+  questions:[
+   {q:'Where do you enable Content Log?',opts:['Main menu → Add-Ons','Settings → Creator → Content Log','World settings','The .bridge editor'],correct:1,exp:'Content Log is in Settings → Creator.'},
+   {q:'What does /reload do?',opts:['Deletes pack','Reloads packs without quitting world','Restarts Minecraft','Saves progress'],correct:1,exp:'/reload reloads behavior and resource packs in-game.'},
+   {q:'Which VS Code extension debugs Script API?',opts:['Minecraft Bedrock Builder','Bedrock Dev Tools','Minecraft Bedrock Edition Debugger','Bedrock Script Runner'],correct:2,exp:'"Minecraft Bedrock Edition Debugger" lets you set breakpoints in JS scripts.'},
+   {q:'A common manifest error is:',opts:['Using lowercase','Duplicate UUIDs','Too many components','format_version too low'],correct:1,exp:'Duplicate UUIDs cause Minecraft to silently fail or confuse packs.'},
+  ]},
+]},
+// ── UNIT 12: Publishing ──────────────────────────────────
+{id:'u12',label:'Publishing Your Add-On',color:'orange',emoji:'🚀',subtitle:'Package, test & share your work',lessons:[
+ {id:'l12a',type:'read',emoji:'📦',title:'Packaging as .mcaddon',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Creating a .mcaddon File</h4>
+  <p>A <code>.mcaddon</code> is a ZIP archive containing your BP and/or RP. Users double-click it to import.</p>
+  <h4>Export from .bridge</h4>
+  <ol><li>File → Export → Export as .mcaddon</li><li>Share the resulting file</li></ol>
+  <h4>Manual Packaging</h4>
+  <pre>my_addon.mcaddon
+├── MyBehaviorPack/
+│   └── manifest.json
+└── MyResourcePack/
+    └── manifest.json</pre>
+  <p>Select both folders → zip → rename to <code>.mcaddon</code>.</p>
+  <div class="tip-box"><div class="tip-title">✅ Final Checklist</div>Zero Content Log errors, all textures load, entities spawn, tested on multiple devices.</div>`},
+ {id:'l12b',type:'read',emoji:'🌐',title:'Where to Publish',xp:15,content:`<div class="type-badge read">📖 Reading</div>
+  <h4>Publishing Platforms</h4>
+  <ul>
+    <li>🟢 <strong>MCPEDL</strong> — Largest free community site. Great for first releases.</li>
+    <li>🔵 <strong>Minecraft Marketplace</strong> — Official paid platform. Requires partner application.</li>
+    <li>⚪ <strong>Planet Minecraft</strong> — Large general modding community.</li>
+    <li>🟠 <strong>GitHub</strong> — Perfect for open-source add-ons with a good README.</li>
+    <li>🟣 <strong>Discord</strong> — Active Bedrock communities for feedback and fans.</li>
+  </ul>
+  <div class="info-box"><div class="info-title">🎉 Congratulations!</div>You have completed the full Minecraft Bedrock Modding course! You're ready to build and ship your own add-ons. The community is waiting for your creations! 🎮</div>`},
+ {id:'l12c',type:'quiz',emoji:'🧠',title:'Final Quiz: Publishing',xp:30,
+  questions:[
+   {q:'What format do you distribute Bedrock add-ons in?',opts:['.zip','.jar','.mcaddon','.mcpack'],correct:2,exp:'.mcaddon files auto-import into Minecraft when double-clicked.'},
+   {q:'Which is the official paid Minecraft marketplace?',opts:['MCPEDL','Planet Minecraft','Minecraft Marketplace','CurseForge'],correct:2,exp:'Minecraft Marketplace requires a partner program application.'},
+   {q:'What is a .mcaddon file internally?',opts:['A compiled binary','A renamed ZIP archive','A SQLite database','A JSON bundle'],correct:1,exp:'A .mcaddon is just a ZIP renamed to .mcaddon.'},
+   {q:'Before publishing you should always:',opts:['Check internet speed','Check Content Log and test on multiple devices','Set a price first','Set up server hosting'],correct:1,exp:'Zero Content Log errors and multi-device testing before publishing.'},
+  ]},
+]},
+]};
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+let currentUser=null, authMode='login', currentLesson=null;
+let progress={}, quizState={}, exerciseState={};
+
+const ALL=CD.units.flatMap(u=>u.lessons);
+const TOTAL=ALL.length;
+const TOTAL_XP=ALL.reduce((a,l)=>a+l.xp,0);
+
+function pKey(uid){return `lca_p_${uid}`;}
+function qKey(uid){return `lca_q_${uid}`;}
+function eKey(uid){return `lca_e_${uid}`;}
+
+function loadProg(uid){
+  try{progress=JSON.parse(localStorage.getItem(pKey(uid))||'{}');}catch{progress={};}
+  try{quizState=JSON.parse(localStorage.getItem(qKey(uid))||'{}');}catch{quizState={};}
+  try{exerciseState=JSON.parse(localStorage.getItem(eKey(uid))||'{}');}catch{exerciseState={};}
+}
+function saveProg(uid){
+  try{localStorage.setItem(pKey(uid),JSON.stringify(progress));}catch{}
+  try{localStorage.setItem(qKey(uid),JSON.stringify(quizState));}catch{}
+  try{localStorage.setItem(eKey(uid),JSON.stringify(exerciseState));}catch{}
+}
+
+const isDone=id=>!!progress[id];
+const doneCount=()=>ALL.filter(l=>isDone(l.id)).length;
+const earnedXP=()=>ALL.filter(l=>isDone(l.id)).reduce((a,l)=>a+l.xp,0);
+const quizPassed=()=>ALL.filter(l=>l.type==='quiz'&&isDone(l.id)).length;
+
+// ═══════════════════════════════════════════════════════════
+// RENDER PATH
+// ═══════════════════════════════════════════════════════════
+function renderPath(){
+  const container=document.getElementById('lesson-path-container');
+  container.innerHTML='';
+  let gi=0;
+  CD.units.forEach(unit=>{
+    const ub=document.createElement('div');
+    ub.className='unit-block';
+    ub.innerHTML=`<div class="unit-header"><div class="unit-badge ${unit.color}">${unit.emoji}</div><div><div class="unit-title">${unit.label}</div><div class="unit-subtitle">${unit.subtitle}</div></div></div><div class="lesson-path" id="p-${unit.id}"></div>`;
+    container.appendChild(ub);
+    const pe=ub.querySelector(`#p-${unit.id}`);
+
+    unit.lessons.forEach((lesson,i)=>{
+      const prev=gi>0?ALL[gi-1]:null;
+      const prevOk=gi===0||(prev&&isDone(prev.id));
+      const done=isDone(lesson.id);
+      const cur=!done&&prevOk;
+      const locked=!done&&!cur;
+
+      if(i>0){
+        const c=document.createElement('div');c.className='path-connector';
+        const prevDone=isDone(unit.lessons[i-1].id);
+        c.innerHTML=`<div class="path-connector-dots"><div class="path-dot ${prevDone?'completed':''}"></div><div class="path-dot ${prevDone?'completed':''}"></div></div>`;
+        pe.appendChild(c);
       }
-    ]
-  };
 
-  // ─── STATE ──────────────────────────────────────────────────
-  let currentUser = null;
-  let authMode = 'login';
-  let currentLesson = null;
-  let progress = {}; // { lessonId: true }
-  const XP_PER_LESSON = 20;
+      const nc=locked?'locked':done?'completed':'current';
+      const tc=lesson.type==='quiz'?'quiz-node':lesson.type==='exercise'?'exercise-node':'';
+      const em=locked?'🔒':lesson.emoji;
+      const lc=`${nc}${lesson.type!=='read'?' '+lesson.type:''}`;
 
-  // ─── PROGRESS PERSISTENCE ────────────────────────────────────
-  function getProgressKey(uid) { return `lca_progress_${uid}`; }
+      const nw=document.createElement('div');nw.className='lesson-node-wrap';
+      nw.innerHTML=`<div class="lesson-node ${nc} ${tc}" onclick="_ol('${lesson.id}',${locked})">${em}</div><div class="lesson-label ${lc}">${lesson.title}</div>`;
+      pe.appendChild(nw);gi++;
+    });
 
-  function loadProgress(uid) {
-    try {
-      const raw = localStorage.getItem(getProgressKey(uid));
-      progress = raw ? JSON.parse(raw) : {};
-    } catch { progress = {}; }
+    const allDone=unit.lessons.every(l=>isDone(l.id));
+    const c2=document.createElement('div');c2.className='path-connector';
+    c2.innerHTML=`<div class="path-connector-dots"><div class="path-dot ${allDone?'completed':''}"></div><div class="path-dot ${allDone?'completed':''}"></div></div>`;
+    pe.appendChild(c2);
+    const cw=document.createElement('div');cw.className='lesson-node-wrap';
+    cw.innerHTML=`<div class="chest-node" onclick="_oc('${unit.id}',${allDone})">${allDone?'🎁':'📦'}</div><div class="lesson-label ${allDone?'completed':''}">${allDone?'Unit complete!':'Finish unit'}</div>`;
+    pe.appendChild(cw);
+  });
+  updateBanner();updateCourseProg();
+}
+
+function updateBanner(){
+  document.getElementById('banner-completed').textContent=doneCount();
+  document.getElementById('banner-total').textContent=TOTAL;
+  document.getElementById('banner-xp').textContent=earnedXP();
+}
+function updateCourseProg(){
+  const pct=Math.round((doneCount()/TOTAL)*100);
+  document.getElementById('course-progress-fill').style.width=pct+'%';
+  document.getElementById('total-lessons-pill').textContent=TOTAL;
+  document.getElementById('total-xp-pill').textContent=TOTAL_XP;
+}
+function updateProfile(){
+  if(!currentUser)return;
+  const name=currentUser.displayName||currentUser.email.split('@')[0];
+  const ini=name.substring(0,2).toUpperCase();
+  document.getElementById('profile-name').textContent=name;
+  document.getElementById('profile-email').textContent=currentUser.email;
+  document.getElementById('profile-avatar').textContent=ini;
+  document.getElementById('sidebar-avatar').textContent=ini;
+  document.getElementById('profile-xp').textContent=earnedXP();
+  document.getElementById('profile-lessons').textContent=doneCount();
+  document.getElementById('profile-quizzes').textContent=quizPassed();
+}
+
+// ═══════════════════════════════════════════════════════════
+// LESSON OPEN
+// ═══════════════════════════════════════════════════════════
+window._ol=function(id,locked){
+  if(locked){toast('🔒','Lesson Locked','Complete previous lessons first!','err');return;}
+  const lesson=ALL.find(l=>l.id===id);if(!lesson)return;
+  const unit=CD.units.find(u=>u.lessons.some(l=>l.id===id));
+  const li=unit.lessons.findIndex(l=>l.id===id);
+  currentLesson=lesson;
+
+  document.getElementById('modal-icon').textContent=lesson.emoji;
+  document.getElementById('modal-title').textContent=lesson.title;
+  document.getElementById('modal-subtitle').textContent=`${unit.label} · Lesson ${li+1}`;
+  document.getElementById('modal-xp-label').textContent=`+${lesson.xp} XP`;
+  const done=isDone(id);
+  const footer=document.getElementById('modal-footer');
+  const btn=document.getElementById('modal-complete-btn');
+  const xpSub=document.getElementById('modal-xp-sub');
+
+  if(lesson.type==='quiz'){
+    xpSub.textContent='Score 75%+ to earn XP';
+    footer.style.display='none';
+    renderQuiz(lesson,done);
+  } else if(lesson.type==='exercise'){
+    xpSub.textContent='Complete the exercise to earn XP';
+    footer.style.display='none';
+    renderExercise(lesson,done);
+  } else {
+    xpSub.textContent='Complete this lesson to earn XP';
+    footer.style.display='flex';
+    document.getElementById('modal-content').innerHTML=lesson.content;
+    if(done){btn.textContent='✓ Already Completed';btn.className='btn-complete done';}
+    else{btn.textContent='Mark as Complete ✓';btn.className='btn-complete';}
   }
+  document.getElementById('lesson-modal-overlay').classList.add('open');
+};
 
-  function saveProgress(uid) {
-    try { localStorage.setItem(getProgressKey(uid), JSON.stringify(progress)); }
-    catch(e) { console.warn('Could not save progress', e); }
+window._oc=function(uid,allDone){
+  if(!allDone){toast('📦','Unit Incomplete','Finish all lessons first!','inf');return;}
+  toast('🎁','Unit Complete!','Keep going — you are crushing it!','');
+};
+
+// ═══════════════════════════════════════════════════════════
+// QUIZ
+// ═══════════════════════════════════════════════════════════
+function renderQuiz(lesson,alreadyDone){
+  const sv=quizState[lesson.id]||{ans:[],done:false,score:0};
+  let h=`<div class="type-badge quiz">🧠 Quiz</div>`;
+  if(sv.done){
+    const pct=Math.round((sv.score/lesson.questions.length)*100);
+    h+=`<div class="quiz-score-bar"><div class="quiz-score-num">${sv.score}/${lesson.questions.length}</div><div class="quiz-score-label">${pct>=75?'🎉 Passed!':'😅 Try again below'} — ${pct}%</div></div>`;
   }
-
-  function isCompleted(lessonId) { return !!progress[lessonId]; }
-
-  function getCompletedCount() {
-    return COURSE_DATA.units.reduce((acc, u) => {
-      return acc + u.lessons.filter(l => isCompleted(l.id)).length;
-    }, 0);
+  h+=`<div id="qc-${lesson.id}">`;
+  lesson.questions.forEach((q,qi)=>{
+    const chosen=sv.ans[qi];
+    h+=`<div class="quiz-question-block">
+      <div class="quiz-q-num">Question ${qi+1} of ${lesson.questions.length}</div>
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options">`;
+    q.opts.forEach((opt,oi)=>{
+      let cls='quiz-option';
+      if(sv.done){cls+=' disabled';if(oi===q.correct)cls+=' correct';else if(chosen===oi)cls+=' wrong';}
+      else if(chosen===oi)cls+=' selected';
+      h+=`<button class="${cls}" onclick="_qp('${lesson.id}',${qi},${oi})"><span class="quiz-letter">${String.fromCharCode(65+oi)}</span>${opt}</button>`;
+    });
+    h+=`</div>`;
+    if(sv.done){
+      const ok=chosen===q.correct;
+      h+=`<div class="quiz-feedback ${ok?'cfb':'wfb'} show">${ok?'✅ Correct!':'❌ '+q.exp}</div>`;
+    }
+    h+=`</div>`;
+  });
+  h+=`</div>`;
+  const allAns=sv.ans.length===lesson.questions.length&&sv.ans.every(a=>a!==undefined);
+  if(!sv.done){
+    h+=`<button class="quiz-submit-btn" id="qsub-${lesson.id}" onclick="_qs('${lesson.id}')" ${allAns?'':'disabled'}>Submit Answers</button>`;
+  } else if(!alreadyDone){
+    const pct=Math.round((sv.score/lesson.questions.length)*100);
+    if(pct>=75) h+=`<button class="claim-btn" onclick="claimLesson()">Claim +${lesson.xp} XP ✓</button>`;
+    else h+=`<button class="quiz-retry-btn" onclick="_qr('${lesson.id}')">Try Again</button>`;
+  } else {
+    h+=`<div class="btn-complete done" style="text-align:center;padding:16px;border-radius:10px;">✓ Already Completed</div>`;
   }
+  document.getElementById('modal-content').innerHTML=h;
+}
 
-  function getTotalXP() { return getCompletedCount() * XP_PER_LESSON; }
+window._qp=function(lid,qi,oi){
+  const sv=quizState[lid]||{ans:[],done:false,score:0};
+  if(sv.done)return;
+  sv.ans[qi]=oi;
+  quizState[lid]=sv;
+  const lesson=ALL.find(l=>l.id===lid);
+  const allAns=sv.ans.length===lesson.questions.length&&sv.ans.every(a=>a!==undefined);
+  const sub=document.getElementById(`qsub-${lid}`);if(sub)sub.disabled=!allAns;
+  // refresh selected visuals
+  const qc=document.getElementById(`qc-${lid}`);if(!qc)return;
+  qc.querySelectorAll('.quiz-question-block').forEach((block,idx)=>{
+    block.querySelectorAll('.quiz-option').forEach((btn,oidx)=>{
+      btn.classList.toggle('selected',sv.ans[idx]===oidx);
+      const ltr=btn.querySelector('.quiz-letter');
+      ltr.style.background=sv.ans[idx]===oidx?'var(--blue)':'';
+      ltr.style.color=sv.ans[idx]===oidx?'white':'';
+    });
+  });
+};
 
-  // ─── RENDER ──────────────────────────────────────────────────
-  function renderLessonPath() {
-    const container = document.getElementById('lesson-path-container');
-    container.innerHTML = '';
+window._qs=function(lid){
+  const lesson=ALL.find(l=>l.id===lid);
+  const sv=quizState[lid]||{ans:[],done:false,score:0};
+  sv.score=lesson.questions.reduce((a,q,i)=>a+(sv.ans[i]===q.correct?1:0),0);
+  sv.done=true;quizState[lid]=sv;saveProg(currentUser.uid);
+  renderQuiz(lesson,isDone(lid));
+};
 
-    let globalLessonIndex = 0;
+window._qr=function(lid){
+  quizState[lid]={ans:[],done:false,score:0};saveProg(currentUser.uid);
+  renderQuiz(ALL.find(l=>l.id===lid),false);
+};
 
-    COURSE_DATA.units.forEach(unit => {
-      const unitBlock = document.createElement('div');
-      unitBlock.className = 'unit-block';
-
-      unitBlock.innerHTML = `
-        <div class="unit-header">
-          <div class="unit-badge ${unit.color}">${unit.emoji}</div>
-          <div>
-            <div class="unit-title">${unit.label}</div>
-            <div class="unit-subtitle">${unit.subtitle}</div>
-          </div>
+// ═══════════════════════════════════════════════════════════
+// EXERCISE
+// ═══════════════════════════════════════════════════════════
+function renderExercise(lesson,alreadyDone){
+  let h=`<div class="type-badge exercise">✏️ Exercise</div>`;
+  if(lesson.exerciseType==='fillblank'){
+    h+=`<div class="exercise-prompt">${lesson.instructions}</div>`;
+    lesson.blanks.forEach((b,i)=>{
+      const sv=exerciseState[`${lesson.id}_${i}`];
+      const state=sv?.state; // 'ok' | 'bad' | undefined
+      h+=`<div class="blank-row">
+        <div class="blank-label">${b.before}</div>
+        <div class="blank-inner">
+          <input class="fill-blank-input ${state==='ok'?'ok':state==='bad'?'bad':''}"
+            id="bi-${lesson.id}-${i}" placeholder="Your answer"
+            value="${sv?.val||''}"
+            ${state==='ok'||alreadyDone?'readonly':''}/>
+          ${b.after?`<span class="blank-after">${b.after}</span>`:''}
+          ${state==='ok'?'<span style="color:var(--green);font-size:18px;">✅</span>':state==='bad'?'<span style="color:var(--red);font-size:18px;">❌</span>':''}
         </div>
-        <div class="lesson-path" id="path-${unit.id}"></div>
-      `;
-
-      container.appendChild(unitBlock);
-
-      const pathEl = unitBlock.querySelector(`#path-${unit.id}`);
-
-      // Build path rows (zigzag: 3 per row)
-      const lessons = unit.lessons;
-      for (let i = 0; i < lessons.length; i++) {
-        const lesson = lessons[i];
-        const allLessons = COURSE_DATA.units.flatMap(u => u.lessons);
-        const prevDone = i === 0
-          ? (globalLessonIndex === 0 || isCompleted(allLessons[globalLessonIndex - 1]?.id))
-          : isCompleted(lessons[i - 1].id);
-
-        const done = isCompleted(lesson.id);
-        const isCurrent = !done && prevDone;
-        const locked = !done && !isCurrent;
-
-        // Connector dots (not before first)
-        if (i > 0) {
-          const connector = document.createElement('div');
-          connector.className = 'path-connector';
-          connector.innerHTML = `<div class="path-connector-dots">
-            <div class="path-dot ${isCompleted(lessons[i-1].id) ? 'completed' : ''}"></div>
-            <div class="path-dot ${isCompleted(lessons[i-1].id) ? 'completed' : ''}"></div>
-          </div>`;
-          pathEl.appendChild(connector);
-        }
-
-        // Lesson node
-        const nodeWrap = document.createElement('div');
-        nodeWrap.className = 'lesson-node-wrap';
-
-        let nodeClass = locked ? 'locked' : done ? 'completed' : 'current';
-        let nodeContent = locked ? '🔒' : lesson.emoji;
-
-        nodeWrap.innerHTML = `
-          <div class="lesson-node ${nodeClass}" data-lesson-id="${lesson.id}" onclick="window._openLesson('${lesson.id}', ${locked})">
-            ${nodeContent}
-          </div>
-          <div class="lesson-label ${nodeClass}">${lesson.title}</div>
-        `;
-
-        pathEl.appendChild(nodeWrap);
-        globalLessonIndex++;
-      }
-
-      // Add chest after last lesson of unit
-      const allDone = unit.lessons.every(l => isCompleted(l.id));
-      const connector2 = document.createElement('div');
-      connector2.className = 'path-connector';
-      connector2.innerHTML = `<div class="path-connector-dots">
-        <div class="path-dot ${allDone ? 'completed' : ''}"></div>
-        <div class="path-dot ${allDone ? 'completed' : ''}"></div>
+        ${state==='bad'?`<div class="blank-result">Correct answer: <strong>${b.blank}</strong></div>`:''}
       </div>`;
-      pathEl.appendChild(connector2);
-
-      const chestWrap = document.createElement('div');
-      chestWrap.className = 'lesson-node-wrap';
-      chestWrap.innerHTML = `
-        <div class="chest-node" onclick="window._openChest('${unit.id}', ${allDone})">${allDone ? '🎁' : '📦'}</div>
-        <div class="lesson-label ${allDone ? 'completed' : ''}">${allDone ? 'Bonus unlocked!' : 'Complete unit'}</div>
-      `;
-      pathEl.appendChild(chestWrap);
     });
-
-    updateBannerStats();
-    updateCourseProgress();
-  }
-
-  function updateBannerStats() {
-    const done = getCompletedCount();
-    const xp = getTotalXP();
-    document.getElementById('banner-completed').textContent = done;
-    document.getElementById('banner-xp').textContent = xp;
-  }
-
-  function updateCourseProgress() {
-    const totalLessons = COURSE_DATA.units.reduce((a, u) => a + u.lessons.length, 0);
-    const done = getCompletedCount();
-    const pct = Math.round((done / totalLessons) * 100);
-    document.getElementById('course-progress-fill').style.width = pct + '%';
-  }
-
-  function updateProfileView() {
-    if (!currentUser) return;
-    const name = currentUser.displayName || currentUser.email.split('@')[0];
-    const initials = name.substring(0,2).toUpperCase();
-    document.getElementById('profile-name').textContent = name;
-    document.getElementById('profile-email').textContent = currentUser.email;
-    document.getElementById('profile-avatar').textContent = initials;
-    document.getElementById('sidebar-avatar').textContent = initials;
-    document.getElementById('profile-xp').textContent = getTotalXP();
-    document.getElementById('profile-lessons').textContent = getCompletedCount();
-    document.getElementById('profile-courses').textContent = getCompletedCount() > 0 ? 1 : 0;
-  }
-
-  // ─── LESSON OPEN ─────────────────────────────────────────────
-  window._openLesson = function(lessonId, locked) {
-    if (locked) {
-      window.showToast('🔒', 'Lesson Locked', 'Complete previous lessons first!', 'error');
-      return;
+    if(!alreadyDone){
+      h+=`<button class="exercise-check-btn" onclick="_cf('${lesson.id}')">Check Answers</button>`;
     }
-
-    const allLessons = COURSE_DATA.units.flatMap(u => u.lessons);
-    const lesson = allLessons.find(l => l.id === lessonId);
-    if (!lesson) return;
-
-    // Find unit info
-    const unit = COURSE_DATA.units.find(u => u.lessons.some(l => l.id === lessonId));
-    const lessonIndex = unit.lessons.findIndex(l => l.id === lessonId);
-
-    currentLesson = lesson;
-
-    document.getElementById('modal-icon').textContent = lesson.emoji;
-    document.getElementById('modal-title').textContent = lesson.title;
-    document.getElementById('modal-subtitle').textContent = `${unit.label} · Lesson ${lessonIndex + 1}`;
-    document.getElementById('modal-xp-label').textContent = `+${lesson.xp} XP`;
-    document.getElementById('modal-content').innerHTML = lesson.content;
-
-    const btn = document.getElementById('modal-complete-btn');
-    if (isCompleted(lessonId)) {
-      btn.textContent = '✓ Already Completed';
-      btn.className = 'btn-complete done';
-    } else {
-      btn.textContent = 'Mark as Complete ✓';
-      btn.className = 'btn-complete';
+  } else if(lesson.exerciseType==='match'){
+    const sm=exerciseState[`m_${lesson.id}`]||{matched:{},sel:null};
+    if(!exerciseState[`mo_${lesson.id}`]){
+      const ord=lesson.pairs.map((_,i)=>i);
+      for(let j=ord.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[ord[j],ord[k]]=[ord[k],ord[j]];}
+      exerciseState[`mo_${lesson.id}`]=ord;
     }
-
-    document.getElementById('lesson-modal-overlay').classList.add('open');
-  };
-
-  window._openChest = function(unitId, allDone) {
-    if (!allDone) {
-      window.showToast('📦', 'Unit Incomplete', 'Finish all lessons in this unit first!', '');
-      return;
-    }
-    window.showToast('🎁', 'Bonus Unlocked!', 'You completed the unit! Keep going!', '');
-  };
-
-  window.completeLesson = function() {
-    if (!currentLesson) return;
-    if (isCompleted(currentLesson.id)) return;
-
-    progress[currentLesson.id] = true;
-    saveProgress(currentUser.uid);
-
-    const btn = document.getElementById('modal-complete-btn');
-    btn.textContent = '✓ Already Completed';
-    btn.className = 'btn-complete done';
-
-    window.showToast('⭐', `+${currentLesson.xp} XP Earned!`, `Lesson complete: ${currentLesson.title}`, '');
-
-    renderLessonPath();
-    updateProfileView();
-  };
-
-  window.closeModal = function() {
-    document.getElementById('lesson-modal-overlay').classList.remove('open');
-    currentLesson = null;
-  };
-
-  window.handleOverlayClick = function(e) {
-    if (e.target === document.getElementById('lesson-modal-overlay')) {
-      window.closeModal();
-    }
-  };
-
-  // ─── NAVIGATION ──────────────────────────────────────────────
-  window.switchView = function(view) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
-    if (view === 'learn') {
-      document.getElementById('view-learn').classList.add('active');
-      document.getElementById('nav-learn').classList.add('active');
-    } else if (view === 'profile') {
-      document.getElementById('view-profile').classList.add('active');
-      document.getElementById('nav-profile').classList.add('active');
-      updateProfileView();
-    }
-  };
-
-  window.openCourse = function() {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('view-course').classList.add('active');
-    document.getElementById('nav-learn').classList.add('active');
-    renderLessonPath();
-  };
-
-  window.closeCourse = function() {
-    switchView('learn');
-    updateCourseProgress();
-  };
-
-  // ─── AUTH ────────────────────────────────────────────────────
-  window.switchAuthTab = function(mode) {
-    authMode = mode;
-    document.querySelectorAll('.auth-tab').forEach((t, i) => {
-      t.classList.toggle('active', (i === 0 && mode === 'login') || (i === 1 && mode === 'signup'));
+    const order=exerciseState[`mo_${lesson.id}`];
+    h+=`<div class="exercise-prompt">${lesson.instructions}</div><div class="match-grid"><div class="match-col">`;
+    lesson.pairs.forEach((p,i)=>{
+      const rv=sm.matched[i];
+      const ok=rv===i,bad=rv!==undefined&&rv!==i;
+      h+=`<div class="match-item mleft ${sm.sel===i?'sel':''} ${ok?'mc':bad?'mw':''}" onclick="_ml('${lesson.id}',${i})">${p.left}</div>`;
     });
-    document.getElementById('name-field').style.display = mode === 'signup' ? 'flex' : 'none';
-    document.getElementById('auth-submit-btn').textContent = mode === 'login' ? 'Log In' : 'Create Account';
-    document.getElementById('auth-error').style.display = 'none';
-    document.getElementById('auth-password').autocomplete = mode === 'login' ? 'current-password' : 'new-password';
-  };
-
-  window.handleAuth = async function() {
-    const email = document.getElementById('auth-email').value.trim();
-    const password = document.getElementById('auth-password').value;
-    const name = document.getElementById('auth-name').value.trim();
-    const btn = document.getElementById('auth-submit-btn');
-    const errEl = document.getElementById('auth-error');
-
-    if (!email || !password) {
-      showErr('Please fill in all fields.');
-      return;
+    h+=`</div><div class="match-col">`;
+    order.forEach(ri=>{
+      const entry=Object.entries(sm.matched).find(([,v])=>v===ri);
+      const li=entry?parseInt(entry[0]):null;
+      const ok=li!==null&&li===ri,bad=li!==null&&li!==ri;
+      h+=`<div class="match-item mright ${ok?'mc':bad?'mw':''}" onclick="_mr('${lesson.id}',${ri})">${lesson.pairs[ri].right}</div>`;
+    });
+    h+=`</div></div>`;
+    const allOk=lesson.pairs.every((_,i)=>sm.matched[i]===i);
+    if(allOk&&!alreadyDone) h+=`<button class="claim-btn" onclick="claimLesson()">Claim +${lesson.xp} XP ✓</button>`;
+    else if(alreadyDone) h+=`<div class="btn-complete done" style="text-align:center;padding:16px;border-radius:10px;">✓ Already Completed</div>`;
+    else{
+      const wrongs=Object.entries(sm.matched).filter(([li,rv])=>rv!==parseInt(li));
+      if(wrongs.length>0) h+=`<button class="quiz-retry-btn" onclick="_mr2('${lesson.id}')">Reset Matches</button>`;
     }
-
-    btn.disabled = true;
-    btn.textContent = '...';
-    errEl.style.display = 'none';
-
-    try {
-      if (authMode === 'signup') {
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
-        if (name) await updateProfile(cred.user, { displayName: name });
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-    } catch (e) {
-      btn.disabled = false;
-      btn.textContent = authMode === 'login' ? 'Log In' : 'Create Account';
-      showErr(friendlyError(e.code));
-    }
-  };
-
-  window.handleLogout = async function() {
-    await signOut(auth);
-  };
-
-  function showErr(msg) {
-    const el = document.getElementById('auth-error');
-    el.textContent = msg;
-    el.style.display = 'block';
   }
+  document.getElementById('modal-content').innerHTML=h;
+}
 
-  function friendlyError(code) {
-    const map = {
-      'auth/invalid-email': 'Invalid email address.',
-      'auth/user-not-found': 'No account with that email.',
-      'auth/wrong-password': 'Incorrect password.',
-      'auth/email-already-in-use': 'An account with this email already exists.',
-      'auth/weak-password': 'Password must be at least 6 characters.',
-      'auth/invalid-credential': 'Invalid email or password.',
-      'auth/too-many-requests': 'Too many attempts. Please try again later.',
-      'auth/network-request-failed': 'Network error. Check your connection.',
-    };
-    return map[code] || 'Something went wrong. Please try again.';
+window._cf=function(lid){
+  const lesson=ALL.find(l=>l.id===lid);
+  let allOk=true;
+  lesson.blanks.forEach((b,i)=>{
+    const inp=document.getElementById(`bi-${lid}-${i}`);if(!inp)return;
+    const val=inp.value.trim();
+    const ok=b.cs?val===b.blank:val.toLowerCase()===b.blank.toLowerCase();
+    exerciseState[`${lid}_${i}`]={val,state:ok?'ok':'bad'};
+    if(!ok)allOk=false;
+  });
+  saveProg(currentUser.uid);
+  renderExercise(lesson,false);
+  if(allOk){
+    const cc=document.getElementById('modal-content');
+    const cb=document.createElement('button');
+    cb.className='claim-btn';cb.textContent=`Claim +${lesson.xp} XP ✓`;cb.onclick=()=>claimLesson();
+    cc.appendChild(cb);
+    toast('🎉','All correct!','Excellent work — claim your XP!','');
+  } else toast('🔍','Not quite!','Check the red answers.','err');
+};
+
+window._ml=function(lid,li){
+  const sm=exerciseState[`m_${lid}`]||{matched:{},sel:null};
+  if(sm.matched[li]!==undefined)return;
+  sm.sel=sm.sel===li?null:li;
+  exerciseState[`m_${lid}`]=sm;
+  renderExercise(ALL.find(l=>l.id===lid),isDone(lid));
+};
+
+window._mr=function(lid,ri){
+  const sm=exerciseState[`m_${lid}`]||{matched:{},sel:null};
+  if(sm.sel===null)return;
+  if(Object.values(sm.matched).includes(ri))return;
+  sm.matched[sm.sel]=ri;sm.sel=null;
+  exerciseState[`m_${lid}`]=sm;saveProg(currentUser.uid);
+  renderExercise(ALL.find(l=>l.id===lid),isDone(lid));
+};
+
+window._mr2=function(lid){
+  exerciseState[`m_${lid}`]={matched:{},sel:null};saveProg(currentUser.uid);
+  renderExercise(ALL.find(l=>l.id===lid),false);
+};
+
+// ═══════════════════════════════════════════════════════════
+// COMPLETE
+// ═══════════════════════════════════════════════════════════
+window.claimLesson=function(){completeCurrentLesson();};
+window.completeLesson=function(){completeCurrentLesson();};
+function completeCurrentLesson(){
+  if(!currentLesson||isDone(currentLesson.id))return;
+  progress[currentLesson.id]=true;saveProg(currentUser.uid);
+  toast('⭐',`+${currentLesson.xp} XP!`,`${currentLesson.title} completed`,'');
+  renderPath();updateProfile();closeModal();
+}
+
+window.closeModal=function(){
+  document.getElementById('lesson-modal-overlay').classList.remove('open');
+  currentLesson=null;
+};
+window.handleOverlayClick=function(e){if(e.target===document.getElementById('lesson-modal-overlay'))closeModal();};
+
+// ═══════════════════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════════════════
+window.switchView=function(v){
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+  if(v==='learn'){document.getElementById('view-learn').classList.add('active');document.getElementById('nav-learn').classList.add('active');}
+  else if(v==='profile'){document.getElementById('view-profile').classList.add('active');document.getElementById('nav-profile').classList.add('active');updateProfile();}
+};
+window.openCourse=function(){
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('view-course').classList.add('active');
+  document.getElementById('nav-learn').classList.add('active');
+  renderPath();
+};
+window.closeCourse=function(){switchView('learn');updateCourseProg();};
+
+// ═══════════════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════════════
+window.switchAuthTab=function(mode){
+  authMode=mode;
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&mode==='login')||(i===1&&mode==='signup')));
+  document.getElementById('name-field').style.display=mode==='signup'?'flex':'none';
+  document.getElementById('auth-submit-btn').textContent=mode==='login'?'Log In':'Create Account';
+  document.getElementById('auth-error').style.display='none';
+};
+window.handleAuth=async function(){
+  const email=document.getElementById('auth-email').value.trim();
+  const pwd=document.getElementById('auth-password').value;
+  const name=document.getElementById('auth-name').value.trim();
+  const btn=document.getElementById('auth-submit-btn');
+  if(!email||!pwd){showErr('Please fill in all fields.');return;}
+  btn.disabled=true;btn.textContent='...';document.getElementById('auth-error').style.display='none';
+  try{
+    if(authMode==='signup'){const c=await createUserWithEmailAndPassword(auth,email,pwd);if(name)await updateProfile(c.user,{displayName:name});}
+    else await signInWithEmailAndPassword(auth,email,pwd);
+  }catch(e){btn.disabled=false;btn.textContent=authMode==='login'?'Log In':'Create Account';showErr(fErr(e.code));}
+};
+window.handleLogout=async function(){await signOut(auth);};
+function showErr(m){const el=document.getElementById('auth-error');el.textContent=m;el.style.display='block';}
+function fErr(c){const m={'auth/invalid-email':'Invalid email.','auth/user-not-found':'No account with that email.','auth/wrong-password':'Incorrect password.','auth/email-already-in-use':'Email already in use.','auth/weak-password':'Password needs 6+ characters.','auth/invalid-credential':'Invalid email or password.','auth/too-many-requests':'Too many attempts. Try later.','auth/network-request-failed':'Network error.'};return m[c]||'Something went wrong.';}
+
+// ═══════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════
+function toast(emoji,title,sub,type){
+  const c=document.getElementById('toast-container');
+  const t=document.createElement('div');
+  t.className='toast'+(type==='err'?' err':type==='inf'?' inf':'');
+  t.innerHTML=`<span>${emoji}</span><div class="toast-text"><strong>${title}</strong><p>${sub}</p></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},3200);
+}
+window.showToast=toast;
+
+// ═══════════════════════════════════════════════════════════
+// AUTH STATE
+// ═══════════════════════════════════════════════════════════
+onAuthStateChanged(auth,user=>{
+  if(user){
+    currentUser=user;loadProg(user.uid);
+    document.getElementById('auth-screen').classList.remove('active');
+    document.getElementById('app-screen').classList.add('active');
+    updateProfile();updateCourseProg();
+  } else {
+    currentUser=null;progress={};quizState={};exerciseState={};
+    document.getElementById('app-screen').classList.remove('active');
+    document.getElementById('auth-screen').classList.add('active');
+    document.getElementById('auth-submit-btn').disabled=false;
+    document.getElementById('auth-submit-btn').textContent='Log In';
   }
-
-  // ─── TOAST ──────────────────────────────────────────────────
-  window.showToast = function(emoji, title, sub, type) {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    toast.className = 'toast' + (type === 'error' ? ' error' : '');
-    toast.innerHTML = `<span>${emoji}</span><div class="toast-text"><strong>${title}</strong><p>${sub}</p></div>`;
-    container.appendChild(toast);
-    setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
-  };
-
-  // ─── AUTH STATE ──────────────────────────────────────────────
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      currentUser = user;
-      loadProgress(user.uid);
-      document.getElementById('auth-screen').classList.remove('active');
-      document.getElementById('app-screen').classList.add('active');
-      updateProfileView();
-      updateCourseProgress();
-    } else {
-      currentUser = null;
-      progress = {};
-      document.getElementById('app-screen').classList.remove('active');
-      document.getElementById('auth-screen').classList.add('active');
-      document.getElementById('auth-submit-btn').disabled = false;
-      document.getElementById('auth-submit-btn').textContent = 'Log In';
-    }
-  });
-
-  // Enter key on auth
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && document.getElementById('auth-screen').classList.contains('active')) {
-      window.handleAuth();
-    }
-    if (e.key === 'Escape') window.closeModal();
-  });
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&document.getElementById('auth-screen').classList.contains('active'))handleAuth();
+  if(e.key==='Escape')closeModal();
+});
 </script>
 </body>
 </html>
